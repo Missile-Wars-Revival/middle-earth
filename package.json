@@ -1,6 +1,6 @@
 {
   "name": "middle-earth",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -13,6 +13,6 @@
     "typescript": "^5.4.5"
   },
   "scripts": {
-    "release": "standard-version && git push"
+    "release": "git add -f dist/ && standard-version && git push"
   }
 }
