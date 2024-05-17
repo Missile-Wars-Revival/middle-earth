@@ -1,6 +1,6 @@
 {
-  "name": "@graykevinb/middle-earth",
-  "version": "1.0.2",
+  "name": "middle-earth",
+  "version": "1.0.3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -13,6 +13,6 @@
     "typescript": "^5.4.5"
   },
   "scripts": {
-    "release": "standard-version && git push --follow-tags && npm publish"
+    "release": "standard-version && git push"
   }
 }
