@@ -1,0 +1,14 @@
+{
+  "name": "middle-earth",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@msgpack/msgpack": "^3.0.0-beta2",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5"
+  }
+}
