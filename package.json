@@ -1,6 +1,6 @@
 {
   "name": "middle-earth",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -8,7 +8,11 @@
   ],
   "devDependencies": {
     "@msgpack/msgpack": "^3.0.0-beta2",
+    "standard-version": "^9.5.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.4.5"
+  },
+  "scripts": {
+    "release": "standard-version && git push --follow-tags && npm publish"
   }
 }
