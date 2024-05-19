@@ -14,12 +14,12 @@ type WebSocketMessage = {
 };
 
 // Client <--> Server
-type GeoLocation = Msg & {
+type GeoLocation = {
     lat: number;
     lon: number;
 };
 
-type Player = Msg & {
+type Player = {
     id: string;
     location: GeoLocation;
 };
@@ -36,7 +36,7 @@ type Missile = Msg & {
     target: Player;
 };
 
-type Landmine = {
+type Landmine = Msg & {
     type: LandmineType;
     landmineId: Number; // Unique identifier for the landmine. Only unique for each player.
     origin: Player;
