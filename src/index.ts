@@ -25,10 +25,6 @@ type Player = {
     longitude: number;
     updatedAt: string; 
   }
-type playerlocation = {
-    latitude: number;
-    longitude: number;
-  }
 
 type LocationUpdate = Msg & {
     user: Player;
@@ -113,7 +109,6 @@ export {
     WebSocketMessage,
     GeoLocation,
     Player,
-    playerlocation,
     LocationUpdate,
     Missile,
     Landmine,
