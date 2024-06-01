@@ -15,8 +15,8 @@ type WebSocketMessage = {
 
 // Client <--> Server
 type GeoLocation = {
-    lat: number;
-    lon: number;
+    latitude: number;
+    longitude: number;
 };
 
 type Player = {
