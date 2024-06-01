@@ -58,6 +58,7 @@ type Landmine = Msg & {
     rarity: string;
   }
 
+
 // Server -> Client
 
 /**
