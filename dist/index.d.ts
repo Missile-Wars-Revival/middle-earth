@@ -10,28 +10,32 @@ type WebSocketMessage = {
     identifier: Identifier;
 };
 type GeoLocation = {
-    lat: number;
-    lon: number;
+    latitude: number;
+    longitude: number;
 };
 type Player = {
     username: string;
     location: GeoLocation;
     updatedAt: string;
 };
+type playerlocation = {
+    latitude: number;
+    longitude: number;
+};
 type LocationUpdate = Msg & {
     user: Player;
     location: GeoLocation;
 };
 type Missile = Msg & {
+    type: String;
+    status: string;
     destination: GeoLocation;
     currentLocation: GeoLocation;
     missileId: Number;
-    type: String;
     radius: number;
     sentbyusername: string;
     timesent: string;
     etatimetoimpact: string;
-    status: string;
 };
 type Landmine = Msg & {
     type: String;
@@ -42,7 +46,8 @@ type Landmine = Msg & {
     etaexpiretime: string;
 };
 type Loot = Msg & {
-    location: Geolocation;
+    latitude: number;
+    longitude: number;
     rarity: string;
 };
 /**
@@ -81,4 +86,4 @@ type LandmineType = "";
 type Landmine1 = LandmineType & "Landmine1";
 type Landmine2 = LandmineType & "Landmine2";
 type Landmine3 = LandmineType & "Landmine3";
-export { WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, MissileType, Missile1Type, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3 };
+export { WebSocketMessage, GeoLocation, Player, playerlocation, LocationUpdate, Missile, Landmine, Loot, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, MissileType, Missile1Type, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3 };
