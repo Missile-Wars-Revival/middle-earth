@@ -107,6 +107,7 @@ type Landmine2 = LandmineType & "Landmine2";
 type Landmine3 = LandmineType & "Landmine3";
 
 export {
+    Msg,
     WebSocketMessage,
     GeoLocation,
     Player,
