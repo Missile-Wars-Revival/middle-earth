@@ -31,15 +31,15 @@ type LocationUpdate = Msg & {
 };
 
 type Missile = Msg & {
+    type: String;
+    status: string;
     destination: GeoLocation;
     currentLocation: GeoLocation;
-    missileId: Number; // Unique identifier for the missile. Only unique for each player.
-    type: String;
+    missileId: Number; // Unique identifier for the missile. Only unique for each player. 
     radius: number;
     sentbyusername: string,
     timesent: string;
     etatimetoimpact: string;
-    status: string;
   }
 
 type Landmine = Msg & {
