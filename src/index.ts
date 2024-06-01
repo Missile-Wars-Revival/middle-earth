@@ -32,7 +32,7 @@ type LocationUpdate = Msg & {
 };
 
 type Missile = Msg & {
-    type: String;
+    type: string;
     status: string;
     destination: GeoLocation;
     currentLocation: GeoLocation;
@@ -44,7 +44,7 @@ type Missile = Msg & {
   }
 
 type Landmine = Msg & {
-    type: String;
+    type: string;
     latitude: number;
     longitude: number;
     placedby: string;
