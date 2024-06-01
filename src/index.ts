@@ -34,7 +34,7 @@ type Missile = Msg & {
     destination: GeoLocation;
     currentLocation: GeoLocation;
     missileId: Number; // Unique identifier for the missile. Only unique for each player.
-    type: string;
+    type: String;
     radius: number;
     sentbyusername: string,
     timesent: string;
@@ -43,7 +43,7 @@ type Missile = Msg & {
   }
 
 type Landmine = Msg & {
-    Type: String;
+    type: String;
     latitude: number;
     longitude: number;
     placedby: string;
