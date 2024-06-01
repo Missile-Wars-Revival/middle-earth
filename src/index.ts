@@ -21,7 +21,8 @@ type GeoLocation = {
 
 type Player = {
     username: string;
-    location: GeoLocation;
+    latitude: number;
+    longitude: number;
     updatedAt: string; 
   }
 type playerlocation = {
