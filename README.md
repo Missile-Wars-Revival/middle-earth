@@ -1,10 +1,12 @@
 # Middle Earth
 This is a common module that the backend and frontend can use.
 
+It has been installed on frontend so just run `npm i` there. 
+
 ## Build and Run
-After npm i
-1. npx tsc
-2. go to your project and use `npm install git@github.com:Missile-Wars-Revival/middle-earth.git`
+1. `npm i`
+2. `npx tsc`
+3. go to your project and use: `npm install git@github.com:Missile-Wars-Revival/middle-earth.git`
 
 ## Using
 Open index.ts to view the available types. They can be imported through:
