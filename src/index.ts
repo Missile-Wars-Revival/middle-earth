@@ -15,14 +15,15 @@ type WebSocketMessage = {
 
 // Client <--> Server
 type GeoLocation = {
-    lat: number;
-    lon: number;
+    latitude: number;
+    longitude: number;
 };
 
 type Player = {
-    id: string;
+    username: string;
     location: GeoLocation;
-};
+    updatedAt: string; 
+  }
 
 type LocationUpdate = Msg & {
     user: Player;
@@ -30,18 +31,30 @@ type LocationUpdate = Msg & {
 };
 
 type Missile = Msg & {
-    type: MissileType;
-    missileId: Number; // Unique identifier for the missile. Only unique for each player.
-    origin: Player;
-    target: Player;
-};
+    type: String;
+    status: string;
+    destination: GeoLocation;
+    currentLocation: GeoLocation;
+    missileId: Number; // Unique identifier for the missile. Only unique for each player. 
+    radius: number;
+    sentbyusername: string,
+    timesent: string;
+    etatimetoimpact: string;
+  }
 
 type Landmine = Msg & {
-    type: LandmineType;
-    landmineId: Number; // Unique identifier for the landmine. Only unique for each player.
-    origin: Player;
-    location: GeoLocation;
-};
+    type: String;
+    latitude: number;
+    longitude: number;
+    placedby: string;
+    placedtime: string;
+    etaexpiretime: string;
+  }
+
+  type Loot = Msg & {
+    location: Geolocation;
+    rarity: string;
+  }
 
 // Server -> Client
 
@@ -57,6 +70,11 @@ type PlayerMissileHit = Msg & {
 type PlayerLandmineHit = Msg & {
     player: Player;
     landmine: Landmine;
+};
+
+type PlayerLootHit = Msg & {
+    player: Player;
+    loot: Loot;
 };
 
 /**
@@ -92,8 +110,10 @@ export {
     LocationUpdate,
     Missile,
     Landmine,
+    Loot,
     PlayerMissileHit,
     PlayerLandmineHit,
+    PlayerLootHit,
     PlayerMissileMiss,
     PlayerLandmineMiss,
     MissileType,

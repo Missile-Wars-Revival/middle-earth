@@ -9,29 +9,41 @@ type WebSocketMessage = {
     messages: Msg[];
     identifier: Identifier;
 };
-type GeoLocation = Msg & {
+type GeoLocation = {
     lat: number;
     lon: number;
 };
-type Player = Msg & {
-    id: string;
+type Player = {
+    username: string;
     location: GeoLocation;
+    updatedAt: string;
 };
 type LocationUpdate = Msg & {
     user: Player;
     location: GeoLocation;
 };
 type Missile = Msg & {
-    type: MissileType;
+    destination: GeoLocation;
+    currentLocation: GeoLocation;
     missileId: Number;
-    origin: Player;
-    target: Player;
+    type: String;
+    radius: number;
+    sentbyusername: string;
+    timesent: string;
+    etatimetoimpact: string;
+    status: string;
 };
-type Landmine = {
-    type: LandmineType;
-    landmineId: Number;
-    origin: Player;
-    location: GeoLocation;
+type Landmine = Msg & {
+    type: String;
+    latitude: number;
+    longitude: number;
+    placedby: string;
+    placedtime: string;
+    etaexpiretime: string;
+};
+type Loot = Msg & {
+    location: Geolocation;
+    rarity: string;
 };
 /**
  * A hit confirmation message is sent to the player who fired the missile and the player who was hit.
@@ -44,6 +56,10 @@ type PlayerMissileHit = Msg & {
 type PlayerLandmineHit = Msg & {
     player: Player;
     landmine: Landmine;
+};
+type PlayerLootHit = Msg & {
+    player: Player;
+    loot: Loot;
 };
 /**
  * A miss message is sent to the player who fired the missile.
@@ -65,4 +81,4 @@ type LandmineType = "";
 type Landmine1 = LandmineType & "Landmine1";
 type Landmine2 = LandmineType & "Landmine2";
 type Landmine3 = LandmineType & "Landmine3";
-export { WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, PlayerMissileHit, PlayerLandmineHit, PlayerMissileMiss, PlayerLandmineMiss, MissileType, Missile1Type, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3 };
+export { WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, MissileType, Missile1Type, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3 };
