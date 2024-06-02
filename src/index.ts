@@ -21,8 +21,7 @@ type GeoLocation = {
 
 type Player = {
     username: string;
-    latitude: number;
-    longitude: number;
+    location: GeoLocation;
     updatedAt: string; 
   }
 
@@ -45,16 +44,14 @@ type Missile = Msg & {
 
 type Landmine = Msg & {
     type: string;
-    latitude: number;
-    longitude: number;
+    location: GeoLocation;
     placedby: string;
     placedtime: string;
     etaexpiretime: string;
   }
 
   type Loot = Msg & {
-    latitude: number;
-    longitude: number;
+    location: GeoLocation;
     rarity: string;
   }
 
