@@ -1,5 +1,5 @@
 /**
- * This file contians a proposed protocol for handling all websocket communication.
+ * This file contains a proposed protocol for handling all websocket communication.
  * Most of these datatypes are suitable for both client and server side. 
  * The server can relay this datatypes not unlike a TURN server in P2P communication.
  */
@@ -105,6 +105,12 @@ type LandmineType = ""; // Abstract type. Don't use.
 type Landmine1 = LandmineType & "Landmine1";
 type Landmine2 = LandmineType & "Landmine2";
 type Landmine3 = LandmineType & "Landmine3";
+
+
+function zip(wsm: WebSocketMessage) {
+    
+}
+
 
 export {
     Msg,
