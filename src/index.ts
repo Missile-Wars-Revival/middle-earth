@@ -53,6 +53,7 @@ type Landmine = Msg & {
   type Loot = Msg & {
     location: GeoLocation;
     rarity: string;
+    expiretime: string;
   }
 
 

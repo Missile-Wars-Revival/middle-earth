@@ -43,6 +43,7 @@ type Landmine = Msg & {
 type Loot = Msg & {
     location: GeoLocation;
     rarity: string;
+    expiretime: string;
 };
 /**
  * A hit confirmation message is sent to the player who fired the missile and the player who was hit.
