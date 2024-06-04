@@ -59,30 +59,35 @@ declare class Loot extends Msg {
  * A hit confirmation message is sent to the player who fired the missile and the player who was hit.
  * This ensures the client's view of the game is consistent with the server's view.
  */
-type PlayerMissileHit = Msg & {
+declare class PlayerMissileHit extends Msg {
     player: Player;
     missile: Missile;
-};
-type PlayerLandmineHit = Msg & {
+    constructor(player: Player, missile: Missile);
+}
+declare class PlayerLandmineHit extends Msg {
     player: Player;
     landmine: Landmine;
-};
-type PlayerLootHit = Msg & {
+    constructor(player: Player, landmine: Landmine);
+}
+declare class PlayerLootHit extends Msg {
     player: Player;
     loot: Loot;
-};
+    constructor(player: Player, loot: Loot);
+}
 /**
  * A miss message is sent to the player who fired the missile.
  * This ensures the client's view of the game is consistent with the server's view.
  */
-type PlayerMissileMiss = Msg & {
+declare class PlayerMissileMiss extends Msg {
     player: Player;
     missile: Missile;
-};
-type PlayerLandmineMiss = Msg & {
+    constructor(player: Player, missile: Missile);
+}
+declare class PlayerLandmineMiss extends Msg {
     player: Player;
     landmine: Landmine;
-};
+    constructor(player: Player, landmine: Landmine);
+}
 type MissileType = "";
 type Missile1Type = MissileType & "Missile1";
 type Missile2 = MissileType & "Missile2";

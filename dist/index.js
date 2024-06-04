@@ -5,7 +5,7 @@
  * The server can relay this datatypes not unlike a TURN server in P2P communication.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = void 0;
+exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = void 0;
 // Base Types. You likely won't directly use these types.
 class WebSocketMessage {
     constructor(messages) {
@@ -86,5 +86,59 @@ class Loot extends Msg {
     }
 }
 exports.Loot = Loot;
+// Server -> Client
+/**
+ * A hit confirmation message is sent to the player who fired the missile and the player who was hit.
+ * This ensures the client's view of the game is consistent with the server's view.
+ */
+class PlayerMissileHit extends Msg {
+    constructor(player, missile) {
+        super("PlayerMissileHit");
+        this.player = player;
+        this.missile = missile;
+    }
+}
+exports.PlayerMissileHit = PlayerMissileHit;
+;
+class PlayerLandmineHit extends Msg {
+    constructor(player, landmine) {
+        super("PlayerLandmineHit");
+        this.player = player;
+        this.landmine = landmine;
+    }
+}
+exports.PlayerLandmineHit = PlayerLandmineHit;
+;
+class PlayerLootHit extends Msg {
+    constructor(player, loot) {
+        super("PlayerLootHit");
+        this.player = player;
+        this.loot = loot;
+    }
+}
+exports.PlayerLootHit = PlayerLootHit;
+;
+/**
+ * A miss message is sent to the player who fired the missile.
+ * This ensures the client's view of the game is consistent with the server's view.
+ */
+class PlayerMissileMiss extends Msg {
+    constructor(player, missile) {
+        super("PlayerMissileMiss");
+        this.player = player;
+        this.missile = missile;
+    }
+}
+exports.PlayerMissileMiss = PlayerMissileMiss;
+;
+class PlayerLandmineMiss extends Msg {
+    constructor(player, landmine) {
+        super("PlayerLandmineMiss");
+        this.player = player;
+        this.landmine = landmine;
+    }
+}
+exports.PlayerLandmineMiss = PlayerLandmineMiss;
+;
 function zip(wsm) {
 }

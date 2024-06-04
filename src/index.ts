@@ -134,33 +134,58 @@ class Loot extends Msg {
  * A hit confirmation message is sent to the player who fired the missile and the player who was hit.
  * This ensures the client's view of the game is consistent with the server's view.
  */
-type PlayerMissileHit = Msg & {
+class PlayerMissileHit extends Msg {
     player: Player;
     missile: Missile;
+    constructor(player: Player, missile: Missile) {
+	super("PlayerMissileHit");
+	this.player = player;
+	this.missile = missile;
+    }
 };
 
-type PlayerLandmineHit = Msg & {
+class PlayerLandmineHit extends Msg {
     player: Player;
     landmine: Landmine;
+    constructor(player: Player, landmine: Landmine) {
+	super("PlayerLandmineHit");
+	this.player = player;
+	this.landmine = landmine;
+    }
 };
 
-type PlayerLootHit = Msg & {
+class PlayerLootHit extends Msg {
     player: Player;
     loot: Loot;
+    constructor(player: Player, loot: Loot) {
+	super("PlayerLootHit");
+	this.player = player;
+	this.loot = loot;
+    }
 };
 
 /**
  * A miss message is sent to the player who fired the missile.
  * This ensures the client's view of the game is consistent with the server's view.
  */
-type PlayerMissileMiss = Msg & {
+class PlayerMissileMiss extends Msg {
     player: Player;
     missile: Missile;
+    constructor(player: Player, missile: Missile) {
+	super("PlayerMissileMiss");
+	this.player = player;
+	this.missile = missile;
+    }
 };
 
-type PlayerLandmineMiss = Msg & {
+class PlayerLandmineMiss extends Msg {
     player: Player;
     landmine: Landmine;
+    constructor(player: Player, landmine: Landmine) {
+	super("PlayerLandmineMiss");
+	this.player = player;
+	this.landmine = landmine;
+    }
 };
 
 // Missile Types
