@@ -5,58 +5,127 @@
  */
 
 // Base Types. You likely won't directly use these types.
-type Msg = {}; 
-type Identifier = {};
 
-type WebSocketMessage = {
+class WebSocketMessage {
     messages: Msg[];
-    identifier: Identifier;
+    constructor(messages: Msg[]) {
+	this.messages = messages;
+    }
 };
+
+class Msg {
+    itemType: string
+    constructor(itemType: string) {
+	this.itemType = itemType;
+    }
+}; 
+
+
 
 // Client <--> Server
-type GeoLocation = {
+class GeoLocation extends Msg {
     latitude: number;
     longitude: number;
+    constructor(latitude: number, longitude: number) {
+	super("GeoLocation");
+	this.latitude = latitude;
+	this.longitude = longitude;
+    }
 };
 
-type Player = {
+class Player extends Msg {
     username: string;
     latitude: number;
     longitude: number;
     updatedAt: string; 
-  }
+    constructor(username: string,
+		latitude: number,
+		longitude: number,
+		updatedAt: string) {
+	super("Player");
+	this.username = username;
+	this.latitude = latitude;
+	this.longitude = longitude;
+	this.updatedAt = updatedAt;
+    }
+}
 
-type LocationUpdate = Msg & {
+class LocationUpdate extends Msg {
     user: Player;
     location: GeoLocation;
+    constructor(user: Player, location:GeoLocation) {
+	super("LocationUpdate");
+	this.user = user;
+	this.location = location;
+    }
 };
 
-type Missile = Msg & {
+class Missile extends Msg {
     type: string;
     status: string;
     destination: GeoLocation;
     currentLocation: GeoLocation;
     missileId: Number; // Unique identifier for the missile. Only unique for each player. 
     radius: number;
-    sentbyusername: string,
+    sentbyusername: string;
     timesent: string;
     etatimetoimpact: string;
-  }
 
-type Landmine = Msg & {
+    constructor(type: string,
+                status: string,
+                destination: GeoLocation,
+                currentLocation: GeoLocation,
+                missileId: number,
+                radius: number,
+                sentbyusername: string,
+                timesent: string,
+                etatimetoimpact: string) {
+                    super("Missile");
+                    this.type = type;
+                    this.status = status;
+                    this.destination = destination;
+                    this.currentLocation = currentLocation;
+                    this.missileId = missileId;
+                    this.radius = radius;
+                    this.sentbyusername = sentbyusername;
+                    this.timesent = timesent;
+                    this.etatimetoimpact = etatimetoimpact;
+                }
+}
+
+class Landmine extends Msg {
     type: string;
     latitude: number;
     longitude: number;
     placedby: string;
     placedtime: string;
     etaexpiretime: string;
-  }
 
-  type Loot = Msg & {
+    constructor(type: string, latitude: number, longitude: number,
+                placedby: string, placedtime: string, etaexpiretime: string
+    ) {
+        super("Landmine");
+        this.type = type;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.placedby = placedby;
+        this.placedtime = placedtime;
+        this.etaexpiretime = etaexpiretime;
+    }
+
+}
+
+class Loot extends Msg {
     latitude: number;
     longitude: number;
     rarity: string;
-  }
+    constructor(latitude: number, longitude: number, rarity: string) {
+        super("Landmine");
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.rarity = rarity;
+    }
+}
 
 
 // Server -> Client

@@ -3,27 +3,32 @@
  * Most of these datatypes are suitable for both client and server side.
  * The server can relay this datatypes not unlike a TURN server in P2P communication.
  */
-type Msg = {};
-type Identifier = {};
-type WebSocketMessage = {
+declare class WebSocketMessage {
     messages: Msg[];
-    identifier: Identifier;
-};
-type GeoLocation = {
+    constructor(messages: Msg[]);
+}
+declare class Msg {
+    itemType: string;
+    constructor(itemType: string);
+}
+declare class GeoLocation extends Msg {
     latitude: number;
     longitude: number;
-};
-type Player = {
+    constructor(latitude: number, longitude: number);
+}
+declare class Player extends Msg {
     username: string;
     latitude: number;
     longitude: number;
     updatedAt: string;
-};
-type LocationUpdate = Msg & {
+    constructor(username: string, latitude: number, longitude: number, updatedAt: string);
+}
+declare class LocationUpdate extends Msg {
     user: Player;
     location: GeoLocation;
-};
-type Missile = Msg & {
+    constructor(user: Player, location: GeoLocation);
+}
+declare class Missile extends Msg {
     type: string;
     status: string;
     destination: GeoLocation;
@@ -33,20 +38,23 @@ type Missile = Msg & {
     sentbyusername: string;
     timesent: string;
     etatimetoimpact: string;
-};
-type Landmine = Msg & {
+    constructor(type: string, status: string, destination: GeoLocation, currentLocation: GeoLocation, missileId: number, radius: number, sentbyusername: string, timesent: string, etatimetoimpact: string);
+}
+declare class Landmine extends Msg {
     type: string;
     latitude: number;
     longitude: number;
     placedby: string;
     placedtime: string;
     etaexpiretime: string;
-};
-type Loot = Msg & {
+    constructor(type: string, latitude: number, longitude: number, placedby: string, placedtime: string, etaexpiretime: string);
+}
+declare class Loot extends Msg {
     latitude: number;
     longitude: number;
     rarity: string;
-};
+    constructor(latitude: number, longitude: number, rarity: string);
+}
 /**
  * A hit confirmation message is sent to the player who fired the missile and the player who was hit.
  * This ensures the client's view of the game is consistent with the server's view.
