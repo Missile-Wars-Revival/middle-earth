@@ -189,17 +189,70 @@ class PlayerLandmineMiss extends Msg {
 };
 
 // Missile Types
-type MissileType = ""; // Abstract type. Don't use.
-type Missile1Type = MissileType & "Missile1";
-type Missile2 = MissileType & "Missile2";
-type Missile3 = MissileType & "Missile3";
+class MissileType { // Abstract type. Don't use.
+    itemType: string;
+    missileBrand: "MISSILE" // Used to prevent TS from conflating MissileType and LandmineType
+    constructor() {
+	this.itemType = "MissileType";
+    }
+}
+
+class Missile1 extends MissileType {
+    typeName: string;
+    constructor() {
+	super();
+	this.typeName = "Missile1";
+    }
+} 
+
+class Missile2 extends MissileType {
+    typeName: string;
+    constructor() {
+	super();
+	this.typeName = "Missile2";
+    }
+}
+
+class Missile3 extends MissileType {
+    typeName: string;
+    constructor() {
+	super();
+	this.typeName = "Missile3";
+    }
+}
 
 // Landmine Types
-type LandmineType = ""; // Abstract type. Don't use.
-type Landmine1 = LandmineType & "Landmine1";
-type Landmine2 = LandmineType & "Landmine2";
-type Landmine3 = LandmineType & "Landmine3";
+class LandmineType {
+    itemType: string
+    landmineBrand: "LANDMINE" // Used to prevent TS from conflating this type with MissileType
+    constructor() {
+	this.itemType = "LandmineType";
+    }
 
+}
+
+class Landmine1 extends LandmineType {
+    typeName: string;
+    constructor() {
+	super();
+	this.typeName = "Landmine1"
+    }
+}
+
+class Landmine2 extends LandmineType {
+    typeName: string;
+    constructor() {
+	super();
+	this.typeName = "Landmine2"
+    }
+}
+class Landmine3 extends LandmineType {
+    typeName: string;
+    constructor() {
+	super();
+	this.typeName = "Landmine3"
+    }
+}
 
 function zip(wsm: WebSocketMessage) {
     
@@ -221,7 +274,7 @@ export {
     PlayerMissileMiss,
     PlayerLandmineMiss,
     MissileType,
-    Missile1Type,
+    Missile1,
     Missile2,
     Missile3,
     LandmineType,
