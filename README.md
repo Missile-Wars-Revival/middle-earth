@@ -14,6 +14,13 @@ Open index.ts to view the available types. They can be imported through:
 import { Player } from "middle-earth";
 ```
 
+### Sending / Serializing
+In your code, prepare a `WebSocketMessage` with however many `Msg`s you like, and then feed it into `zip()` to serialize and compress it, returning a `Buffer`. Send this over the websocket.
+
+### Receiving / Deserializing
+Take the incoming `Buffer` and pass it as an argument to `unzip()`. It will return a `WebSocketMessage` containing several `Msg` types.
+
+
 # Full-Stack Websocket Message Protocol
 A full stack protocol is defined here. We'll use messagepack which is a compressed version of JSON. This is a draft and if you think we should change something make a PR or comment.
 

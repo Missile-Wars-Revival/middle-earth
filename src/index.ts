@@ -4,6 +4,8 @@
  * The server can relay this datatypes not unlike a TURN server in P2P communication.
  */
 
+import { pack, unpack } from "msgpackr";
+
 // Base Types. You likely won't directly use these types.
 
 class WebSocketMessage {
@@ -254,10 +256,90 @@ class Landmine3 extends LandmineType {
     }
 }
 
-function zip(wsm: WebSocketMessage) {
-    
+function classify(item: any) {
+    switch (item.itemType) {
+	case "GeoLocation": 
+	    return new GeoLocation(item.latitude, item.longitude);
+	    break;
+	case "Player":
+	    let player: Player = item;
+	    return player;
+	    break;
+	case "LocationUpdate":
+	    let locupd: LocationUpdate = item;
+	    return locupd;
+	    break;
+	case "Missile":
+	    let missile: Missile = item;
+	    return missile;
+	    break;
+	case "Landmine":
+	    let landmine: Landmine = item;
+	    return landmine;
+	    break;
+	case "Loot":
+	    let loot: Loot = item;
+	    return loot;
+	    break;
+	case "PlayerMissileHit":
+	    let pmh: PlayerMissileHit = item;
+	    return pmh;
+	    break;
+	case "PlayerLandmineHit":
+	    let plh: PlayerLandmineHit = item;
+	    return plh;
+	    break;
+	case "PlayerLootHit":
+	    let plth: PlayerLootHit = item;
+	    return plth;
+	    break;
+	case "PlayerMissileMiss":
+	    let pmm: PlayerMissileMiss = item;
+	    return pmm;
+	    break;
+	case "PlayerLandmineMiss":
+	    let plm: PlayerLandmineMiss = item;
+	    return plm;
+	    break;
+	case "Missile1":
+	    return new Missile1();
+	    break;
+	case "Missile2":
+	    return new Missile2();
+	    break;
+	case "Missile3":
+	    return new Missile3();
+	    break;
+	case "Landmine1":
+	    return new Landmine1();
+	    break;
+	case "Landmine2":
+	    return new Landmine2();
+	    break;
+	case "Landmine3":
+	    return new Landmine3();
+	    break;
+    };
 }
 
+
+function zip(wsm: WebSocketMessage) {
+    let json = JSON.stringify(wsm);
+    let packed = pack(json);
+    return packed;
+}
+
+function unzip(packed: Buffer) {
+    let unpacked = unpack(Buffer.from(packed));
+    let to_instantiate: Object[] = unpacked.messages;
+    let instantiated: Msg[] = [];
+
+    for (let item in to_instantiate) {
+	instantiated.push(classify(item));
+    }
+    return new WebSocketMessage(instantiated);
+
+} 
 
 export {
     Msg,
@@ -280,5 +362,8 @@ export {
     LandmineType,
     Landmine1,
     Landmine2,
-    Landmine3
+    Landmine3,
+    zip,
+    unzip,
+    classify
 };

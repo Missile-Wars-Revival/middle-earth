@@ -3,6 +3,7 @@
  * Most of these datatypes are suitable for both client and server side.
  * The server can relay this datatypes not unlike a TURN server in P2P communication.
  */
+/// <reference types="node" />
 declare class WebSocketMessage {
     messages: Msg[];
     constructor(messages: Msg[]);
@@ -88,12 +89,41 @@ declare class PlayerLandmineMiss extends Msg {
     landmine: Landmine;
     constructor(player: Player, landmine: Landmine);
 }
-type MissileType = "";
-type Missile1Type = MissileType & "Missile1";
-type Missile2 = MissileType & "Missile2";
-type Missile3 = MissileType & "Missile3";
-type LandmineType = "";
-type Landmine1 = LandmineType & "Landmine1";
-type Landmine2 = LandmineType & "Landmine2";
-type Landmine3 = LandmineType & "Landmine3";
-export { Msg, WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, MissileType, Missile1Type, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3 };
+declare class MissileType {
+    itemType: string;
+    missileBrand: "MISSILE";
+    constructor();
+}
+declare class Missile1 extends MissileType {
+    typeName: string;
+    constructor();
+}
+declare class Missile2 extends MissileType {
+    typeName: string;
+    constructor();
+}
+declare class Missile3 extends MissileType {
+    typeName: string;
+    constructor();
+}
+declare class LandmineType {
+    itemType: string;
+    landmineBrand: "LANDMINE";
+    constructor();
+}
+declare class Landmine1 extends LandmineType {
+    typeName: string;
+    constructor();
+}
+declare class Landmine2 extends LandmineType {
+    typeName: string;
+    constructor();
+}
+declare class Landmine3 extends LandmineType {
+    typeName: string;
+    constructor();
+}
+declare function classify(item: any): GeoLocation | Player | LocationUpdate | Missile | Landmine | Loot | PlayerMissileHit | PlayerLandmineHit | PlayerLootHit | PlayerMissileMiss | PlayerLandmineMiss | Missile1 | Missile2 | Missile3 | Landmine1 | Landmine2 | Landmine3;
+declare function zip(wsm: WebSocketMessage): Buffer;
+declare function unzip(packed: Buffer): WebSocketMessage;
+export { Msg, WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, MissileType, Missile1, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3, zip, unzip, classify };
