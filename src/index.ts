@@ -330,15 +330,11 @@ function zip(wsm: WebSocketMessage) {
 }
 
 function unzip(packed: Buffer) {
-    let unpacked = unpack(Buffer.from(packed));
-    let to_instantiate: Object[] = unpacked.messages;
+    let unpacked: WebSocketMessage = JSON.parse(unpack(Buffer.from(packed)));
+    let to_instantiate = unpacked.messages;
     let instantiated: Msg[] = [];
-
-    for (let item in to_instantiate) {
-	instantiated.push(classify(item));
-    }
+    to_instantiate.forEach(function (item) {instantiated.push(classify(item))} );
     return new WebSocketMessage(instantiated);
-
 } 
 
 export {

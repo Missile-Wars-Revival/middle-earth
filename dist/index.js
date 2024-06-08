@@ -271,12 +271,10 @@ function zip(wsm) {
 }
 exports.zip = zip;
 function unzip(packed) {
-    let unpacked = (0, msgpackr_1.unpack)(Buffer.from(packed));
+    let unpacked = JSON.parse((0, msgpackr_1.unpack)(Buffer.from(packed)));
     let to_instantiate = unpacked.messages;
     let instantiated = [];
-    for (let item in to_instantiate) {
-        instantiated.push(classify(item));
-    }
+    to_instantiate.forEach(function (item) { instantiated.push(classify(item)); });
     return new WebSocketMessage(instantiated);
 }
 exports.unzip = unzip;
