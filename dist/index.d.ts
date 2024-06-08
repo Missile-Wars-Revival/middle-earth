@@ -19,8 +19,7 @@ declare class GeoLocation extends Msg {
 }
 declare class Player extends Msg {
     username: string;
-    latitude: number;
-    longitude: number;
+    location: GeoLocation;
     updatedAt: string;
     constructor(username: string, latitude: number, longitude: number, updatedAt: string);
 }
@@ -43,8 +42,7 @@ declare class Missile extends Msg {
 }
 declare class Landmine extends Msg {
     type: string;
-    latitude: number;
-    longitude: number;
+    location: GeoLocation;
     placedby: string;
     placedtime: string;
     etaexpiretime: string;

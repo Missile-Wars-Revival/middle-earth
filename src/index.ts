@@ -37,8 +37,7 @@ class GeoLocation extends Msg {
 
 class Player extends Msg {
     username: string;
-    latitude: number;
-    longitude: number;
+    location: GeoLocation;
     updatedAt: string; 
     constructor(username: string,
 		latitude: number,
@@ -97,12 +96,10 @@ class Missile extends Msg {
 
 class Landmine extends Msg {
     type: string;
-    latitude: number;
-    longitude: number;
+    location: GeoLocation;
     placedby: string;
     placedtime: string;
     etaexpiretime: string;
-
     constructor(type: string, latitude: number, longitude: number,
                 placedby: string, placedtime: string, etaexpiretime: string
     ) {
@@ -128,7 +125,6 @@ class Loot extends Msg {
         this.rarity = rarity;
     }
 }
-
 
 // Server -> Client
 
