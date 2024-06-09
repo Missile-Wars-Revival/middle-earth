@@ -23,6 +23,12 @@ class Msg {
 exports.Msg = Msg;
 ;
 // Client <--> Server
+class Echo extends Msg {
+    constructor(text) {
+        super("Echo");
+        this.text = text;
+    }
+}
 class GeoLocation extends Msg {
     constructor(latitude, longitude) {
         super("GeoLocation");
@@ -199,6 +205,10 @@ class Landmine3 extends LandmineType {
 exports.Landmine3 = Landmine3;
 function classify(item) {
     switch (item.itemType) {
+        case "Echo":
+            let echo = item;
+            return echo;
+            break;
         case "GeoLocation":
             return new GeoLocation(item.latitude, item.longitude);
             break;

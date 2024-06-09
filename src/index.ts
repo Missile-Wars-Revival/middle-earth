@@ -25,6 +25,15 @@ class Msg {
 
 
 // Client <--> Server
+
+class Echo extends Msg {
+    text: string;
+    constructor(text: string) {
+	super("Echo");
+	this.text = text;
+    }
+}
+
 class GeoLocation extends Msg {
     latitude: number;
     longitude: number;
@@ -37,7 +46,8 @@ class GeoLocation extends Msg {
 
 class Player extends Msg {
     username: string;
-    location: GeoLocation;
+    latitude: number;
+    longitude: number;
     updatedAt: string; 
     constructor(username: string,
 		latitude: number,
@@ -96,7 +106,8 @@ class Missile extends Msg {
 
 class Landmine extends Msg {
     type: string;
-    location: GeoLocation;
+    latitude: number;
+    longitude: number;
     placedby: string;
     placedtime: string;
     etaexpiretime: string;
@@ -254,6 +265,10 @@ class Landmine3 extends LandmineType {
 
 function classify(item: any) {
     switch (item.itemType) {
+	case "Echo":
+	    let echo: Echo = item;
+	    return echo;
+	    break;
 	case "GeoLocation": 
 	    return new GeoLocation(item.latitude, item.longitude);
 	    break;

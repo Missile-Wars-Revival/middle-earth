@@ -12,6 +12,10 @@ declare class Msg {
     itemType: string;
     constructor(itemType: string);
 }
+declare class Echo extends Msg {
+    text: string;
+    constructor(text: string);
+}
 declare class GeoLocation extends Msg {
     latitude: number;
     longitude: number;
@@ -19,7 +23,8 @@ declare class GeoLocation extends Msg {
 }
 declare class Player extends Msg {
     username: string;
-    location: GeoLocation;
+    latitude: number;
+    longitude: number;
     updatedAt: string;
     constructor(username: string, latitude: number, longitude: number, updatedAt: string);
 }
@@ -42,7 +47,8 @@ declare class Missile extends Msg {
 }
 declare class Landmine extends Msg {
     type: string;
-    location: GeoLocation;
+    latitude: number;
+    longitude: number;
     placedby: string;
     placedtime: string;
     etaexpiretime: string;
@@ -121,7 +127,7 @@ declare class Landmine3 extends LandmineType {
     typeName: string;
     constructor();
 }
-declare function classify(item: any): GeoLocation | Player | LocationUpdate | Missile | Landmine | Loot | PlayerMissileHit | PlayerLandmineHit | PlayerLootHit | PlayerMissileMiss | PlayerLandmineMiss | Missile1 | Missile2 | Missile3 | Landmine1 | Landmine2 | Landmine3;
+declare function classify(item: any): Echo | GeoLocation | Player | LocationUpdate | Missile | Landmine | Loot | PlayerMissileHit | PlayerLandmineHit | PlayerLootHit | PlayerMissileMiss | PlayerLandmineMiss | Missile1 | Missile2 | Missile3 | Landmine1 | Landmine2 | Landmine3;
 declare function zip(wsm: WebSocketMessage): Buffer;
 declare function unzip(packed: Buffer): WebSocketMessage;
 export { Msg, WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, MissileType, Missile1, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3, zip, unzip, classify };
