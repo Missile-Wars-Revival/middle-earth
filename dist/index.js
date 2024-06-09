@@ -5,7 +5,7 @@
  * The server can relay this datatypes not unlike a TURN server in P2P communication.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.classify = exports.unzip = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = void 0;
+exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = void 0;
 const msgpackr_1 = require("msgpackr");
 // Base Types. You likely won't directly use these types.
 class WebSocketMessage {
@@ -280,6 +280,10 @@ function zip(wsm) {
     return packed;
 }
 exports.zip = zip;
+function zip_single(msg) {
+    return (0, msgpackr_1.pack)(JSON.stringify(new WebSocketMessage([msg])));
+}
+exports.zip_single = zip_single;
 function unzip(packed) {
     let unpacked = JSON.parse((0, msgpackr_1.unpack)(Buffer.from(packed)));
     let to_instantiate = unpacked.messages;

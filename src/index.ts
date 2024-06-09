@@ -340,6 +340,10 @@ function zip(wsm: WebSocketMessage) {
     return packed;
 }
 
+function zip_single(msg: Msg) {
+    return pack(JSON.stringify(new WebSocketMessage([msg])));
+}
+
 function unzip(packed: Buffer) {
     let unpacked: WebSocketMessage = JSON.parse(unpack(Buffer.from(packed)));
     let to_instantiate = unpacked.messages;
@@ -371,6 +375,7 @@ export {
     Landmine2,
     Landmine3,
     zip,
+    zip_single,
     unzip,
     classify
 };

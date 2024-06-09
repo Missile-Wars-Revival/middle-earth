@@ -129,5 +129,6 @@ declare class Landmine3 extends LandmineType {
 }
 declare function classify(item: any): Echo | GeoLocation | Player | LocationUpdate | Missile | Landmine | Loot | PlayerMissileHit | PlayerLandmineHit | PlayerLootHit | PlayerMissileMiss | PlayerLandmineMiss | Missile1 | Missile2 | Missile3 | Landmine1 | Landmine2 | Landmine3;
 declare function zip(wsm: WebSocketMessage): Buffer;
+declare function zip_single(msg: Msg): Buffer;
 declare function unzip(packed: Buffer): WebSocketMessage;
-export { Msg, WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, MissileType, Missile1, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3, zip, unzip, classify };
+export { Msg, WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, MissileType, Missile1, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3, zip, zip_single, unzip, classify };
