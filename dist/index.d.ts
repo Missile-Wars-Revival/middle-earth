@@ -1,28 +1,34 @@
 /**
- * This file contians a proposed protocol for handling all websocket communication.
+ * This file contains a proposed protocol for handling all websocket communication.
  * Most of these datatypes are suitable for both client and server side.
  * The server can relay this datatypes not unlike a TURN server in P2P communication.
  */
-type Msg = {};
-type Identifier = {};
-type WebSocketMessage = {
+/// <reference types="node" />
+declare class WebSocketMessage {
     messages: Msg[];
-    identifier: Identifier;
-};
-type GeoLocation = {
+    constructor(messages: Msg[]);
+}
+declare class Msg {
+    itemType: string;
+    constructor(itemType: string);
+}
+declare class GeoLocation extends Msg {
     latitude: number;
     longitude: number;
-};
-type Player = {
+    constructor(latitude: number, longitude: number);
+}
+declare class Player extends Msg {
     username: string;
     location: GeoLocation;
     updatedAt: string;
-};
-type LocationUpdate = Msg & {
+    constructor(username: string, latitude: number, longitude: number, updatedAt: string);
+}
+declare class LocationUpdate extends Msg {
     user: Player;
     location: GeoLocation;
-};
-type Missile = Msg & {
+    constructor(user: Player, location: GeoLocation);
+}
+declare class Missile extends Msg {
     type: string;
     status: string;
     destination: GeoLocation;
@@ -32,53 +38,90 @@ type Missile = Msg & {
     sentbyusername: string;
     timesent: string;
     etatimetoimpact: string;
-};
-type Landmine = Msg & {
+    constructor(type: string, status: string, destination: GeoLocation, currentLocation: GeoLocation, missileId: number, radius: number, sentbyusername: string, timesent: string, etatimetoimpact: string);
+}
+declare class Landmine extends Msg {
     type: string;
     location: GeoLocation;
     placedby: string;
     placedtime: string;
     etaexpiretime: string;
-};
-type Loot = Msg & {
-    location: GeoLocation;
+    constructor(type: string, latitude: number, longitude: number, placedby: string, placedtime: string, etaexpiretime: string);
+}
+declare class Loot extends Msg {
+    latitude: number;
+    longitude: number;
     rarity: string;
-    expiretime: string;
-};
+    constructor(latitude: number, longitude: number, rarity: string);
+}
 /**
  * A hit confirmation message is sent to the player who fired the missile and the player who was hit.
  * This ensures the client's view of the game is consistent with the server's view.
  */
-type PlayerMissileHit = Msg & {
+declare class PlayerMissileHit extends Msg {
     player: Player;
     missile: Missile;
-};
-type PlayerLandmineHit = Msg & {
+    constructor(player: Player, missile: Missile);
+}
+declare class PlayerLandmineHit extends Msg {
     player: Player;
     landmine: Landmine;
-};
-type PlayerLootHit = Msg & {
+    constructor(player: Player, landmine: Landmine);
+}
+declare class PlayerLootHit extends Msg {
     player: Player;
     loot: Loot;
-};
+    constructor(player: Player, loot: Loot);
+}
 /**
  * A miss message is sent to the player who fired the missile.
  * This ensures the client's view of the game is consistent with the server's view.
  */
-type PlayerMissileMiss = Msg & {
+declare class PlayerMissileMiss extends Msg {
     player: Player;
     missile: Missile;
-};
-type PlayerLandmineMiss = Msg & {
+    constructor(player: Player, missile: Missile);
+}
+declare class PlayerLandmineMiss extends Msg {
     player: Player;
     landmine: Landmine;
-};
-type MissileType = "";
-type Missile1Type = MissileType & "Missile1";
-type Missile2 = MissileType & "Missile2";
-type Missile3 = MissileType & "Missile3";
-type LandmineType = "";
-type Landmine1 = LandmineType & "Landmine1";
-type Landmine2 = LandmineType & "Landmine2";
-type Landmine3 = LandmineType & "Landmine3";
-export { Msg, WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, MissileType, Missile1Type, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3 };
+    constructor(player: Player, landmine: Landmine);
+}
+declare class MissileType {
+    itemType: string;
+    missileBrand: "MISSILE";
+    constructor();
+}
+declare class Missile1 extends MissileType {
+    typeName: string;
+    constructor();
+}
+declare class Missile2 extends MissileType {
+    typeName: string;
+    constructor();
+}
+declare class Missile3 extends MissileType {
+    typeName: string;
+    constructor();
+}
+declare class LandmineType {
+    itemType: string;
+    landmineBrand: "LANDMINE";
+    constructor();
+}
+declare class Landmine1 extends LandmineType {
+    typeName: string;
+    constructor();
+}
+declare class Landmine2 extends LandmineType {
+    typeName: string;
+    constructor();
+}
+declare class Landmine3 extends LandmineType {
+    typeName: string;
+    constructor();
+}
+declare function classify(item: any): GeoLocation | Player | LocationUpdate | Missile | Landmine | Loot | PlayerMissileHit | PlayerLandmineHit | PlayerLootHit | PlayerMissileMiss | PlayerLandmineMiss | Missile1 | Missile2 | Missile3 | Landmine1 | Landmine2 | Landmine3;
+declare function zip(wsm: WebSocketMessage): Buffer;
+declare function unzip(packed: Buffer): WebSocketMessage;
+export { Msg, WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, MissileType, Missile1, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3, zip, unzip, classify };
