@@ -5,7 +5,7 @@
  * The server can relay this datatypes not unlike a TURN server in P2P communication.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = void 0;
+exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.Lootitem = exports.Landmineitem = exports.Missileitem = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = void 0;
 const msgpackr_1 = require("msgpackr");
 // Base Types. You likely won't directly use these types.
 class WebSocketMessage {
@@ -93,6 +93,46 @@ class Loot extends Msg {
     }
 }
 exports.Loot = Loot;
+// Base class for items that can be bought in-game
+class GameItem {
+    constructor(name, description, cost, image, sound) {
+        this.name = name;
+        this.description = description;
+        this.cost = cost;
+        this.image = image;
+        this.sound = sound;
+    }
+}
+class Missileitem extends GameItem {
+    constructor(name, description, cost, image, sound, speed, blastRadius, damage, range, launchFailureRate) {
+        super(name, description, cost, image, sound);
+        this.speed = speed;
+        this.blastRadius = blastRadius;
+        this.damage = damage;
+        this.range = range;
+        this.launchFailureRate = launchFailureRate;
+    }
+}
+exports.Missileitem = Missileitem;
+class Lootitem {
+    constructor(rarity) {
+        this.rarity = rarity;
+    }
+    generateLoot() {
+        // Logic to randomize loot based on rarity
+    }
+}
+exports.Lootitem = Lootitem;
+class Landmineitem extends GameItem {
+    constructor(name, description, cost, image, sound, timeUntilExpiry, damage, range, placementFailureRate) {
+        super(name, description, cost, image, sound);
+        this.timeUntilExpiry = timeUntilExpiry;
+        this.damage = damage;
+        this.range = range;
+        this.placementFailureRate = placementFailureRate;
+    }
+}
+exports.Landmineitem = Landmineitem;
 // Server -> Client
 /**
  * A hit confirmation message is sent to the player who fired the missile and the player who was hit.

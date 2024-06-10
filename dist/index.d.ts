@@ -60,6 +60,34 @@ declare class Loot extends Msg {
     rarity: string;
     constructor(latitude: number, longitude: number, rarity: string);
 }
+declare abstract class GameItem {
+    name: string;
+    description: string;
+    cost: number;
+    image: string;
+    sound: string;
+    constructor(name: string, description: string, cost: number, image: string, sound: string);
+}
+declare class Missileitem extends GameItem {
+    speed: number;
+    blastRadius: number;
+    damage: number;
+    range: number;
+    launchFailureRate: number;
+    constructor(name: string, description: string, cost: number, image: string, sound: string, speed: number, blastRadius: number, damage: number, range: number, launchFailureRate: number);
+}
+declare class Lootitem {
+    rarity: string;
+    constructor(rarity: string);
+    generateLoot(): void;
+}
+declare class Landmineitem extends GameItem {
+    timeUntilExpiry: number;
+    damage: number;
+    range: number;
+    placementFailureRate: number;
+    constructor(name: string, description: string, cost: number, image: string, sound: string, timeUntilExpiry: number, damage: number, range: number, placementFailureRate: number);
+}
 /**
  * A hit confirmation message is sent to the player who fired the missile and the player who was hit.
  * This ensures the client's view of the game is consistent with the server's view.
@@ -131,4 +159,4 @@ declare function classify(item: any): Echo | GeoLocation | Player | LocationUpda
 declare function zip(wsm: WebSocketMessage): Buffer;
 declare function zip_single(msg: Msg): Buffer;
 declare function unzip(packed: Buffer): WebSocketMessage;
-export { Msg, WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, MissileType, Missile1, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3, zip, zip_single, unzip, classify };
+export { Msg, WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, Missileitem, Landmineitem, Lootitem, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, MissileType, Missile1, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3, zip, zip_single, unzip, classify };

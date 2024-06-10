@@ -137,6 +137,70 @@ class Loot extends Msg {
     }
 }
 
+// Base class for items that can be bought in-game
+abstract class GameItem {
+    name: string;
+    description: string;
+    cost: number;
+    image: string;
+    sound: string;
+    
+    constructor(name: string, description: string, cost: number, image: string, sound: string) {
+      this.name = name;
+      this.description = description;
+      this.cost = cost;
+      this.image = image;
+      this.sound = sound;
+    }
+  }
+  
+  class Missileitem extends GameItem {
+    speed: number;
+    blastRadius: number;
+    damage: number;
+    range: number;
+    launchFailureRate: number;
+  
+    constructor(name: string, description: string, cost: number, image: string, sound: string,
+                speed: number, blastRadius: number, damage: number, range: number, launchFailureRate: number) {
+      super(name, description, cost, image, sound);
+      this.speed = speed;
+      this.blastRadius = blastRadius;
+      this.damage = damage;
+      this.range = range;
+      this.launchFailureRate = launchFailureRate;
+    }
+  }
+  
+  class Lootitem {
+    rarity: string;
+  
+    constructor(rarity: string) {
+      this.rarity = rarity;
+    }
+  
+    generateLoot() {
+      // Logic to randomize loot based on rarity
+    }
+  }
+  
+  class Landmineitem extends GameItem {
+    timeUntilExpiry: number;
+    damage: number;
+    range: number;
+    placementFailureRate: number;
+  
+    constructor(name: string, description: string, cost: number, image: string, sound: string,
+                timeUntilExpiry: number, damage: number, range: number, placementFailureRate: number) {
+      super(name, description, cost, image, sound);
+      this.timeUntilExpiry = timeUntilExpiry;
+      this.damage = damage;
+      this.range = range;
+      this.placementFailureRate = placementFailureRate;
+    }
+  }
+  
+
 // Server -> Client
 
 /**
@@ -361,6 +425,9 @@ export {
     Missile,
     Landmine,
     Loot,
+    Missileitem,
+    Landmineitem,
+    Lootitem,
     PlayerMissileHit,
     PlayerLandmineHit,
     PlayerLootHit,
