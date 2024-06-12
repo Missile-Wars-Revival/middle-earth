@@ -31,4 +31,32 @@ class Msg {
 ## Bidirectional types
 Bidirectional types can be sent from the client to the server, or vise versa.
 
-###
+### Echo 
+
+```ts
+class Echo extends Msg {
+    text: string;
+    constructor(text: string) {
+        super("Echo");
+        this.text = text;
+    }
+}
+```
+`Echo` is a type that exists purely for testing and healthcheck purposes. As of `6b455ce` on backend, there is working inmplementation that will return a duplicate of any `Echo`s it receives. `Echo` has no purpose for gameplay.
+
+## Serde functions
+
+These are the functions providing serde (serialize/deserialize) functionality for easier transmission of data between clients and the server.
+
+### zip(wsm: WebSocketMessage) -> Buffer
+
+zip() takes a `WebSocketMessage` (containing as many `Msg`s as you wish) and returns it as a compressed binary buffer to reduce bandwidth consumption. This buffer can be transmitted over WebSocket.
+
+### zip_single(msg: Msg) -> Buffer
+
+`zip_single()` is a shortcut that takes a single `Msg`, wraps it in a `WebSocketMessage`, and then calls `zip()` on the resulting buffer and returns it to the user.
+
+### unzip(packed: Buffer) -> WebSocketMessage
+
+`unzip()` takes in the buffers created by `zip()` and `zip_single()` and deserializes them, returning a `WebSocketMessage` containing the same messages as the original.
+
