@@ -46,17 +46,14 @@ class GeoLocation extends Msg {
 
 class Player extends Msg {
     username: string;
-    latitude: number;
-    longitude: number;
+    location: Geolocation;
     updatedAt: string; 
     constructor(username: string,
-		latitude: number,
-		longitude: number,
+		location: Geolocation,
 		updatedAt: string) {
 	super("Player");
 	this.username = username;
-	this.latitude = latitude;
-	this.longitude = longitude;
+	this.location = location;
 	this.updatedAt = updatedAt;
     }
 }
@@ -106,18 +103,16 @@ class Missile extends Msg {
 
 class Landmine extends Msg {
     type: string;
-    latitude: number;
-    longitude: number;
+    location: Geolocation
     placedby: string;
     placedtime: string;
     etaexpiretime: string;
-    constructor(type: string, latitude: number, longitude: number,
+    constructor(type: string, location: Geolocation,
                 placedby: string, placedtime: string, etaexpiretime: string
     ) {
         super("Landmine");
         this.type = type;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.location = location;
         this.placedby = placedby;
         this.placedtime = placedtime;
         this.etaexpiretime = etaexpiretime;
@@ -126,14 +121,12 @@ class Landmine extends Msg {
 }
 
 class Loot extends Msg {
-    latitude: number;
-    longitude: number;
+    location: GeoLocation;
     rarity: string;
     expiretime: string;
-    constructor(latitude: number, longitude: number, rarity: string, expiretime: string) {
+    constructor(location: GeoLocation, rarity: string, expiretime: string) {
         super("Loot");
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.location = location;
         this.rarity = rarity;
         this.expiretime = expiretime;
     }

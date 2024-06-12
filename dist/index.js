@@ -39,11 +39,10 @@ class GeoLocation extends Msg {
 exports.GeoLocation = GeoLocation;
 ;
 class Player extends Msg {
-    constructor(username, latitude, longitude, updatedAt) {
+    constructor(username, location, updatedAt) {
         super("Player");
         this.username = username;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.location = location;
         this.updatedAt = updatedAt;
     }
 }
@@ -73,11 +72,10 @@ class Missile extends Msg {
 }
 exports.Missile = Missile;
 class Landmine extends Msg {
-    constructor(type, latitude, longitude, placedby, placedtime, etaexpiretime) {
+    constructor(type, location, placedby, placedtime, etaexpiretime) {
         super("Landmine");
         this.type = type;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.location = location;
         this.placedby = placedby;
         this.placedtime = placedtime;
         this.etaexpiretime = etaexpiretime;
@@ -85,10 +83,9 @@ class Landmine extends Msg {
 }
 exports.Landmine = Landmine;
 class Loot extends Msg {
-    constructor(latitude, longitude, rarity, expiretime) {
+    constructor(location, rarity, expiretime) {
         super("Loot");
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.location = location;
         this.rarity = rarity;
         this.expiretime = expiretime;
     }

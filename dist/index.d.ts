@@ -23,10 +23,9 @@ declare class GeoLocation extends Msg {
 }
 declare class Player extends Msg {
     username: string;
-    latitude: number;
-    longitude: number;
+    location: Geolocation;
     updatedAt: string;
-    constructor(username: string, latitude: number, longitude: number, updatedAt: string);
+    constructor(username: string, location: Geolocation, updatedAt: string);
 }
 declare class LocationUpdate extends Msg {
     user: Player;
@@ -47,19 +46,17 @@ declare class Missile extends Msg {
 }
 declare class Landmine extends Msg {
     type: string;
-    latitude: number;
-    longitude: number;
+    location: Geolocation;
     placedby: string;
     placedtime: string;
     etaexpiretime: string;
-    constructor(type: string, latitude: number, longitude: number, placedby: string, placedtime: string, etaexpiretime: string);
+    constructor(type: string, location: Geolocation, placedby: string, placedtime: string, etaexpiretime: string);
 }
 declare class Loot extends Msg {
-    latitude: number;
-    longitude: number;
+    location: GeoLocation;
     rarity: string;
     expiretime: string;
-    constructor(latitude: number, longitude: number, rarity: string, expiretime: string);
+    constructor(location: GeoLocation, rarity: string, expiretime: string);
 }
 /**
  * A hit confirmation message is sent to the player who fired the missile and the player who was hit.
