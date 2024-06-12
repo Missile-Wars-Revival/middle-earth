@@ -44,6 +44,19 @@ class Echo extends Msg {
 ```
 `Echo` is a type that exists purely for testing and healthcheck purposes. As of `6b455ce` on backend, there is working inmplementation that will return a duplicate of any `Echo`s it receives. `Echo` has no purpose for gameplay.
 
+## Server -> Client
+
+### MissileGroup
+
+Only one field, an array of `Missile`s, passed in as the sole argument to the contructor. Sent to the client in response to receiving a `FetchMissiles` message.
+
+## Client -> Server
+
+### FetchMissiles
+
+`FetchMissiles` has no fields, but still must be instantiated via `new FetchMissiles()` syntax. It is simply a request to the server to send missile data.
+
+
 ## Serde functions
 
 These are the functions providing serde (serialize/deserialize) functionality for easier transmission of data between clients and the server.

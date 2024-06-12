@@ -199,6 +199,16 @@ class PlayerLandmineMiss extends Msg {
     }
 };
 
+
+class MissileGroup extends Msg {
+    missiles: Missile[];
+    constructor(missiles: Missile[]) {
+        super("MissileGroup");
+        this.missiles = missiles;
+    }
+}
+
+
 // Missile Types
 class MissileType { // Abstract type. Don't use.
     itemType: string;
@@ -264,6 +274,23 @@ class Landmine3 extends LandmineType {
 	this.typeName = "Landmine3"
     }
 }
+
+
+
+// Client -> Server
+// Types to request/fetch data from server
+
+class FetchMissiles extends Msg {
+    private brand: string;
+    constructor() {
+        super("FetchMissiles");
+        this.brand = "FetchMissiles";
+    }
+}
+
+
+
+
 
 function classify(item: any) {
     switch (item.itemType) {

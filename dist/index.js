@@ -148,6 +148,12 @@ class PlayerLandmineMiss extends Msg {
 }
 exports.PlayerLandmineMiss = PlayerLandmineMiss;
 ;
+class MissileGroup extends Msg {
+    constructor(missiles) {
+        super("MissileGroup");
+        this.missiles = missiles;
+    }
+}
 // Missile Types
 class MissileType {
     constructor() {
@@ -204,6 +210,14 @@ class Landmine3 extends LandmineType {
     }
 }
 exports.Landmine3 = Landmine3;
+// Client -> Server
+// Types to request/fetch data from server
+class FetchMissiles extends Msg {
+    constructor() {
+        super("FetchMissiles");
+        this.brand = "FetchMissiles";
+    }
+}
 function classify(item) {
     switch (item.itemType) {
         case "Echo":
