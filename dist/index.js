@@ -85,11 +85,12 @@ class Landmine extends Msg {
 }
 exports.Landmine = Landmine;
 class Loot extends Msg {
-    constructor(latitude, longitude, rarity) {
-        super("Landmine");
+    constructor(latitude, longitude, rarity, expiretime) {
+        super("Loot");
         this.latitude = latitude;
         this.longitude = longitude;
         this.rarity = rarity;
+        this.expiretime = expiretime;
     }
 }
 exports.Loot = Loot;

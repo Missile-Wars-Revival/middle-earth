@@ -58,7 +58,8 @@ declare class Loot extends Msg {
     latitude: number;
     longitude: number;
     rarity: string;
-    constructor(latitude: number, longitude: number, rarity: string);
+    expiretime: string;
+    constructor(latitude: number, longitude: number, rarity: string, expiretime: string);
 }
 /**
  * A hit confirmation message is sent to the player who fired the missile and the player who was hit.

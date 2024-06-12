@@ -129,11 +129,13 @@ class Loot extends Msg {
     latitude: number;
     longitude: number;
     rarity: string;
-    constructor(latitude: number, longitude: number, rarity: string) {
-        super("Landmine");
+    expiretime: string;
+    constructor(latitude: number, longitude: number, rarity: string, expiretime: string) {
+        super("Loot");
         this.latitude = latitude;
         this.longitude = longitude;
         this.rarity = rarity;
+        this.expiretime = expiretime;
     }
 }
 
