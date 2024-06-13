@@ -23,9 +23,9 @@ declare class GeoLocation extends Msg {
 }
 declare class Player extends Msg {
     username: string;
-    location: Geolocation;
+    location: GeoLocation;
     updatedAt: string;
-    constructor(username: string, location: Geolocation, updatedAt: string);
+    constructor(username: string, location: GeoLocation, updatedAt: string);
 }
 declare class LocationUpdate extends Msg {
     user: Player;

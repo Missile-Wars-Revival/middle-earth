@@ -46,10 +46,10 @@ class GeoLocation extends Msg {
 
 class Player extends Msg {
     username: string;
-    location: Geolocation;
+    location: GeoLocation;
     updatedAt: string; 
     constructor(username: string,
-		location: Geolocation,
+		location: GeoLocation,
 		updatedAt: string) {
 	super("Player");
 	this.username = username;
