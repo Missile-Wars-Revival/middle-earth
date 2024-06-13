@@ -103,7 +103,7 @@ class Missile extends Msg {
 
 class Landmine extends Msg {
     type: string;
-    location: Geolocation
+    location: Geolocation;
     placedby: string;
     placedtime: string;
     etaexpiretime: string;
