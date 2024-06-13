@@ -46,11 +46,11 @@ declare class Missile extends Msg {
 }
 declare class Landmine extends Msg {
     type: string;
-    location: Geolocation;
+    location: GeoLocation;
     placedby: string;
     placedtime: string;
     etaexpiretime: string;
-    constructor(type: string, location: Geolocation, placedby: string, placedtime: string, etaexpiretime: string);
+    constructor(type: string, location: GeoLocation, placedby: string, placedtime: string, etaexpiretime: string);
 }
 declare class Loot extends Msg {
     location: GeoLocation;

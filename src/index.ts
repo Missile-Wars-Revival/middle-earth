@@ -103,11 +103,11 @@ class Missile extends Msg {
 
 class Landmine extends Msg {
     type: string;
-    location: Geolocation;
+    location: GeoLocation;
     placedby: string;
     placedtime: string;
     etaexpiretime: string;
-    constructor(type: string, location: Geolocation,
+    constructor(type: string, location: GeoLocation,
                 placedby: string, placedtime: string, etaexpiretime: string
     ) {
         super("Landmine");
