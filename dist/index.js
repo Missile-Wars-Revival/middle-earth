@@ -6,7 +6,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.MissileGroup = exports.FetchMissiles = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = void 0;
-const msgpackr_1 = require("msgpackr");
+const msgpack_lite_1 = require("msgpack-lite");
 // Base Types. You likely won't directly use these types.
 class WebSocketMessage {
     constructor(messages) {
@@ -39,11 +39,10 @@ class GeoLocation extends Msg {
 exports.GeoLocation = GeoLocation;
 ;
 class Player extends Msg {
-    constructor(username, latitude, longitude, updatedAt) {
+    constructor(username, location, updatedAt) {
         super("Player");
         this.username = username;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.location = location;
         this.updatedAt = updatedAt;
     }
 }
@@ -73,11 +72,10 @@ class Missile extends Msg {
 }
 exports.Missile = Missile;
 class Landmine extends Msg {
-    constructor(type, latitude, longitude, placedby, placedtime, etaexpiretime) {
+    constructor(type, location, placedby, placedtime, etaexpiretime) {
         super("Landmine");
         this.type = type;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.location = location;
         this.placedby = placedby;
         this.placedtime = placedtime;
         this.etaexpiretime = etaexpiretime;
@@ -85,10 +83,9 @@ class Landmine extends Msg {
 }
 exports.Landmine = Landmine;
 class Loot extends Msg {
-    constructor(latitude, longitude, rarity, expiretime) {
+    constructor(location, rarity, expiretime) {
         super("Loot");
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.location = location;
         this.rarity = rarity;
         this.expiretime = expiretime;
     }
@@ -300,16 +297,16 @@ function classify(item) {
 exports.classify = classify;
 function zip(wsm) {
     let json = JSON.stringify(wsm);
-    let packed = (0, msgpackr_1.pack)(json);
+    let packed = (0, msgpack_lite_1.encode)(json);
     return packed;
 }
 exports.zip = zip;
 function zip_single(msg) {
-    return (0, msgpackr_1.pack)(JSON.stringify(new WebSocketMessage([msg])));
+    return (0, msgpack_lite_1.encode)(JSON.stringify(new WebSocketMessage([msg])));
 }
 exports.zip_single = zip_single;
 function unzip(packed) {
-    let unpacked = JSON.parse((0, msgpackr_1.unpack)(Buffer.from(packed)));
+    let unpacked = JSON.parse((0, msgpack_lite_1.decode)(Buffer.from(packed)));
     let to_instantiate = unpacked.messages;
     let instantiated = [];
     to_instantiate.forEach(function (item) { instantiated.push(classify(item)); });

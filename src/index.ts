@@ -4,23 +4,23 @@
  * The server can relay this datatypes not unlike a TURN server in P2P communication.
  */
 
-import { pack, unpack } from "msgpackr";
+import { encode, decode } from 'msgpack-lite';
 
 // Base Types. You likely won't directly use these types.
 
 class WebSocketMessage {
     messages: Msg[];
     constructor(messages: Msg[]) {
-	this.messages = messages;
+        this.messages = messages;
     }
 };
 
 class Msg {
     itemType: string
     constructor(itemType: string) {
-	this.itemType = itemType;
+        this.itemType = itemType;
     }
-}; 
+};
 
 
 
@@ -29,8 +29,8 @@ class Msg {
 class Echo extends Msg {
     text: string;
     constructor(text: string) {
-	super("Echo");
-	this.text = text;
+        super("Echo");
+        this.text = text;
     }
 }
 
@@ -38,36 +38,33 @@ class GeoLocation extends Msg {
     latitude: number;
     longitude: number;
     constructor(latitude: number, longitude: number) {
-	super("GeoLocation");
-	this.latitude = latitude;
-	this.longitude = longitude;
+        super("GeoLocation");
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 };
 
 class Player extends Msg {
     username: string;
-    latitude: number;
-    longitude: number;
-    updatedAt: string; 
+    location: GeoLocation;
+    updatedAt: string;
     constructor(username: string,
-		latitude: number,
-		longitude: number,
-		updatedAt: string) {
-	super("Player");
-	this.username = username;
-	this.latitude = latitude;
-	this.longitude = longitude;
-	this.updatedAt = updatedAt;
+        location: GeoLocation,
+        updatedAt: string) {
+        super("Player");
+        this.username = username;
+        this.location = location;
+        this.updatedAt = updatedAt;
     }
 }
 
 class LocationUpdate extends Msg {
     user: Player;
     location: GeoLocation;
-    constructor(user: Player, location:GeoLocation) {
-	super("LocationUpdate");
-	this.user = user;
-	this.location = location;
+    constructor(user: Player, location: GeoLocation) {
+        super("LocationUpdate");
+        this.user = user;
+        this.location = location;
     }
 };
 
@@ -83,41 +80,39 @@ class Missile extends Msg {
     etatimetoimpact: string;
 
     constructor(type: string,
-                status: string,
-                destination: GeoLocation,
-                currentLocation: GeoLocation,
-                missileId: number,
-                radius: number,
-                sentbyusername: string,
-                timesent: string,
-                etatimetoimpact: string) {
-                    super("Missile");
-                    this.type = type;
-                    this.status = status;
-                    this.destination = destination;
-                    this.currentLocation = currentLocation;
-                    this.missileId = missileId;
-                    this.radius = radius;
-                    this.sentbyusername = sentbyusername;
-                    this.timesent = timesent;
-                    this.etatimetoimpact = etatimetoimpact;
-                }
+        status: string,
+        destination: GeoLocation,
+        currentLocation: GeoLocation,
+        missileId: number,
+        radius: number,
+        sentbyusername: string,
+        timesent: string,
+        etatimetoimpact: string) {
+        super("Missile");
+        this.type = type;
+        this.status = status;
+        this.destination = destination;
+        this.currentLocation = currentLocation;
+        this.missileId = missileId;
+        this.radius = radius;
+        this.sentbyusername = sentbyusername;
+        this.timesent = timesent;
+        this.etatimetoimpact = etatimetoimpact;
+    }
 }
 
 class Landmine extends Msg {
     type: string;
-    latitude: number;
-    longitude: number;
+    location: GeoLocation;
     placedby: string;
     placedtime: string;
     etaexpiretime: string;
-    constructor(type: string, latitude: number, longitude: number,
-                placedby: string, placedtime: string, etaexpiretime: string
+    constructor(type: string, location: GeoLocation,
+        placedby: string, placedtime: string, etaexpiretime: string
     ) {
         super("Landmine");
         this.type = type;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.location = location;
         this.placedby = placedby;
         this.placedtime = placedtime;
         this.etaexpiretime = etaexpiretime;
@@ -126,14 +121,12 @@ class Landmine extends Msg {
 }
 
 class Loot extends Msg {
-    latitude: number;
-    longitude: number;
+    location: GeoLocation;
     rarity: string;
     expiretime: string;
-    constructor(latitude: number, longitude: number, rarity: string, expiretime: string) {
+    constructor(location: GeoLocation, rarity: string, expiretime: string) {
         super("Loot");
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.location = location;
         this.rarity = rarity;
         this.expiretime = expiretime;
     }
@@ -149,9 +142,9 @@ class PlayerMissileHit extends Msg {
     player: Player;
     missile: Missile;
     constructor(player: Player, missile: Missile) {
-	super("PlayerMissileHit");
-	this.player = player;
-	this.missile = missile;
+        super("PlayerMissileHit");
+        this.player = player;
+        this.missile = missile;
     }
 };
 
@@ -159,9 +152,9 @@ class PlayerLandmineHit extends Msg {
     player: Player;
     landmine: Landmine;
     constructor(player: Player, landmine: Landmine) {
-	super("PlayerLandmineHit");
-	this.player = player;
-	this.landmine = landmine;
+        super("PlayerLandmineHit");
+        this.player = player;
+        this.landmine = landmine;
     }
 };
 
@@ -169,9 +162,9 @@ class PlayerLootHit extends Msg {
     player: Player;
     loot: Loot;
     constructor(player: Player, loot: Loot) {
-	super("PlayerLootHit");
-	this.player = player;
-	this.loot = loot;
+        super("PlayerLootHit");
+        this.player = player;
+        this.loot = loot;
     }
 };
 
@@ -183,9 +176,9 @@ class PlayerMissileMiss extends Msg {
     player: Player;
     missile: Missile;
     constructor(player: Player, missile: Missile) {
-	super("PlayerMissileMiss");
-	this.player = player;
-	this.missile = missile;
+        super("PlayerMissileMiss");
+        this.player = player;
+        this.missile = missile;
     }
 };
 
@@ -193,9 +186,9 @@ class PlayerLandmineMiss extends Msg {
     player: Player;
     landmine: Landmine;
     constructor(player: Player, landmine: Landmine) {
-	super("PlayerLandmineMiss");
-	this.player = player;
-	this.landmine = landmine;
+        super("PlayerLandmineMiss");
+        this.player = player;
+        this.landmine = landmine;
     }
 };
 
@@ -214,31 +207,31 @@ class MissileType { // Abstract type. Don't use.
     itemType: string;
     missileBrand: "MISSILE" // Used to prevent TS from conflating MissileType and LandmineType
     constructor() {
-	this.itemType = "MissileType";
+        this.itemType = "MissileType";
     }
 }
 
 class Missile1 extends MissileType {
     typeName: string;
     constructor() {
-	super();
-	this.typeName = "Missile1";
+        super();
+        this.typeName = "Missile1";
     }
-} 
+}
 
 class Missile2 extends MissileType {
     typeName: string;
     constructor() {
-	super();
-	this.typeName = "Missile2";
+        super();
+        this.typeName = "Missile2";
     }
 }
 
 class Missile3 extends MissileType {
     typeName: string;
     constructor() {
-	super();
-	this.typeName = "Missile3";
+        super();
+        this.typeName = "Missile3";
     }
 }
 
@@ -247,7 +240,7 @@ class LandmineType {
     itemType: string
     landmineBrand: "LANDMINE" // Used to prevent TS from conflating this type with MissileType
     constructor() {
-	this.itemType = "LandmineType";
+        this.itemType = "LandmineType";
     }
 
 }
@@ -255,23 +248,23 @@ class LandmineType {
 class Landmine1 extends LandmineType {
     typeName: string;
     constructor() {
-	super();
-	this.typeName = "Landmine1"
+        super();
+        this.typeName = "Landmine1"
     }
 }
 
 class Landmine2 extends LandmineType {
     typeName: string;
     constructor() {
-	super();
-	this.typeName = "Landmine2"
+        super();
+        this.typeName = "Landmine2"
     }
 }
 class Landmine3 extends LandmineType {
     typeName: string;
     constructor() {
-	super();
-	this.typeName = "Landmine3"
+        super();
+        this.typeName = "Landmine3"
     }
 }
 
@@ -369,21 +362,21 @@ function classify(item: any) {
 
 function zip(wsm: WebSocketMessage) {
     let json = JSON.stringify(wsm);
-    let packed = pack(json);
+    let packed = encode(json);
     return packed;
 }
 
 function zip_single(msg: Msg) {
-    return pack(JSON.stringify(new WebSocketMessage([msg])));
+    return encode(JSON.stringify(new WebSocketMessage([msg])));
 }
 
 function unzip(packed: Buffer) {
-    let unpacked: WebSocketMessage = JSON.parse(unpack(Buffer.from(packed)));
+    let unpacked: WebSocketMessage = JSON.parse(decode(Buffer.from(packed)));
     let to_instantiate = unpacked.messages;
     let instantiated: Msg[] = [];
-    to_instantiate.forEach(function (item) {instantiated.push(classify(item))} );
+    to_instantiate.forEach(function (item) { instantiated.push(classify(item)) });
     return new WebSocketMessage(instantiated);
-} 
+}
 
 export {
     Msg,

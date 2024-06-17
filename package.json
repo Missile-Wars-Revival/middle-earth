@@ -1,6 +1,6 @@
 {
   "name": "middle-earth",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -8,6 +8,7 @@
   ],
   "devDependencies": {
     "@msgpack/msgpack": "^3.0.0-beta2",
+    "@types/msgpack-lite": "^0.1.11",
     "standard-version": "^9.5.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.4.5"
@@ -16,6 +17,6 @@
     "release": "git add -f dist/ && standard-version && git push"
   },
   "dependencies": {
-    "msgpackr": "^1.10.2"
+    "msgpack-lite": "^0.1.26"
   }
 }
