@@ -289,9 +289,6 @@ class FetchMissiles extends Msg {
 }
 
 
-
-
-
 function classify(item: any) {
     switch (item.itemType) {
 	case "Echo":
@@ -341,6 +338,13 @@ function classify(item: any) {
 	    let plm: PlayerLandmineMiss = item;
 	    return plm;
 	    break;
+    case "FetchMissiles":
+        return new FetchMissiles();
+        break;
+    case "MissileGroup":
+        let misgrp: MissileGroup = item;
+        return misgrp;
+        break;
 	case "Missile1":
 	    return new Missile1();
 	    break;
@@ -395,6 +399,8 @@ export {
     PlayerLootHit,
     PlayerMissileMiss,
     PlayerLandmineMiss,
+    FetchMissiles,
+    MissileGroup,
     MissileType,
     Missile1,
     Missile2,
