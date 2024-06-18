@@ -99,6 +99,22 @@ class Missile extends Msg {
         this.timesent = timesent;
         this.etatimetoimpact = etatimetoimpact;
     }
+
+    static from_db(db_entry: any) {
+        let destination = new GeoLocation(db_entry.destLat, db_entry.destLong);
+        let currentLocation = new GeoLocation(db_entry.currentLat,
+                                              db_entry.currentLong);
+        return new Missile(db_entry.type,
+                           db_entry.status,
+                           destination,
+                           currentLocation,
+                           db_entry.missileId,
+                           db_entry.radius,
+                           db_entry.sentbyusername,
+                           db_entry.timesent,
+                           db_entry.etatimetoimpact);
+    }
+
 }
 
 class Landmine extends Msg {
@@ -192,6 +208,16 @@ class PlayerLandmineMiss extends Msg {
     }
 };
 
+
+class MissileGroup extends Msg {
+    missiles: Missile[];
+    constructor(missiles: Missile[]) {
+        super("MissileGroup");
+        this.missiles = missiles;
+    }
+}
+
+
 // Missile Types
 class MissileType { // Abstract type. Don't use.
     itemType: string;
@@ -258,73 +284,94 @@ class Landmine3 extends LandmineType {
     }
 }
 
+
+
+// Client -> Server
+// Types to request/fetch data from server
+
+class FetchMissiles extends Msg {
+    private brand: string;
+    constructor() {
+        super("FetchMissiles");
+        this.brand = "FetchMissiles";
+    }
+}
+
+
 function classify(item: any) {
     switch (item.itemType) {
-        case "Echo":
-            let echo: Echo = item;
-            return echo;
-            break;
-        case "GeoLocation":
-            return new GeoLocation(item.latitude, item.longitude);
-            break;
-        case "Player":
-            let player: Player = item;
-            return player;
-            break;
-        case "LocationUpdate":
-            let locupd: LocationUpdate = item;
-            return locupd;
-            break;
-        case "Missile":
-            let missile: Missile = item;
-            return missile;
-            break;
-        case "Landmine":
-            let landmine: Landmine = item;
-            return landmine;
-            break;
-        case "Loot":
-            let loot: Loot = item;
-            return loot;
-            break;
-        case "PlayerMissileHit":
-            let pmh: PlayerMissileHit = item;
-            return pmh;
-            break;
-        case "PlayerLandmineHit":
-            let plh: PlayerLandmineHit = item;
-            return plh;
-            break;
-        case "PlayerLootHit":
-            let plth: PlayerLootHit = item;
-            return plth;
-            break;
-        case "PlayerMissileMiss":
-            let pmm: PlayerMissileMiss = item;
-            return pmm;
-            break;
-        case "PlayerLandmineMiss":
-            let plm: PlayerLandmineMiss = item;
-            return plm;
-            break;
-        case "Missile1":
-            return new Missile1();
-            break;
-        case "Missile2":
-            return new Missile2();
-            break;
-        case "Missile3":
-            return new Missile3();
-            break;
-        case "Landmine1":
-            return new Landmine1();
-            break;
-        case "Landmine2":
-            return new Landmine2();
-            break;
-        case "Landmine3":
-            return new Landmine3();
-            break;
+	case "Echo":
+	    let echo: Echo = item;
+	    return echo;
+	    break;
+	case "GeoLocation": 
+	    return new GeoLocation(item.latitude, item.longitude);
+	    break;
+	case "Player":
+	    let player: Player = item;
+	    return player;
+	    break;
+	case "LocationUpdate":
+	    let locupd: LocationUpdate = item;
+	    return locupd;
+	    break;
+	case "Missile":
+	    let missile: Missile = item;
+	    return missile;
+	    break;
+	case "Landmine":
+	    let landmine: Landmine = item;
+	    return landmine;
+	    break;
+	case "Loot":
+	    let loot: Loot = item;
+	    return loot;
+	    break;
+	case "PlayerMissileHit":
+	    let pmh: PlayerMissileHit = item;
+	    return pmh;
+	    break;
+	case "PlayerLandmineHit":
+	    let plh: PlayerLandmineHit = item;
+	    return plh;
+	    break;
+	case "PlayerLootHit":
+	    let plth: PlayerLootHit = item;
+	    return plth;
+	    break;
+	case "PlayerMissileMiss":
+	    let pmm: PlayerMissileMiss = item;
+	    return pmm;
+	    break;
+	case "PlayerLandmineMiss":
+	    let plm: PlayerLandmineMiss = item;
+	    return plm;
+	    break;
+    case "FetchMissiles":
+        return new FetchMissiles();
+        break;
+    case "MissileGroup":
+        let misgrp: MissileGroup = item;
+        return misgrp;
+        break;
+	case "Missile1":
+	    return new Missile1();
+	    break;
+	case "Missile2":
+	    return new Missile2();
+	    break;
+	case "Missile3":
+	    return new Missile3();
+	    break;
+	case "Landmine1":
+	    return new Landmine1();
+	    break;
+	case "Landmine2":
+	    return new Landmine2();
+	    break;
+	case "Landmine3":
+	    return new Landmine3();
+	    break;
     };
 }
 
@@ -361,6 +408,8 @@ export {
     PlayerLootHit,
     PlayerMissileMiss,
     PlayerLandmineMiss,
+    FetchMissiles,
+    MissileGroup,
     MissileType,
     Missile1,
     Missile2,
