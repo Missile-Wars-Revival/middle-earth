@@ -43,6 +43,7 @@ declare class Missile extends Msg {
     timesent: string;
     etatimetoimpact: string;
     constructor(type: string, status: string, destination: GeoLocation, currentLocation: GeoLocation, missileId: number, radius: number, sentbyusername: string, timesent: string, etatimetoimpact: string);
+    static from_db(db_entry: any): Missile;
 }
 declare class Landmine extends Msg {
     type: string;
