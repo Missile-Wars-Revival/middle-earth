@@ -5,7 +5,7 @@
  * The server can relay this datatypes not unlike a TURN server in P2P communication.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.MissileGroup = exports.FetchMissiles = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = void 0;
+exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.MissileGroup = exports.FetchMissiles = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.MissileBallista = exports.MissileAmplifier = exports.Missileitem = exports.GameItem = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = void 0;
 const msgpack_lite_1 = require("msgpack-lite");
 // Base Types. You likely won't directly use these types.
 class WebSocketMessage {
@@ -222,6 +222,55 @@ class FetchMissiles extends Msg {
     }
 }
 exports.FetchMissiles = FetchMissiles;
+// Entity Definitions
+// Base class for items that can be bought in-game
+class GameItem {
+    constructor(name, description, cost) {
+        this.name = name;
+        this.description = description;
+        this.cost = cost;
+    }
+}
+exports.GameItem = GameItem;
+class Missileitem extends GameItem {
+    constructor(name, description, cost, speed, blastRadius, damage, fallouttime) {
+        super(name, description, cost);
+        this.speed = speed;
+        this.blastRadius = blastRadius;
+        this.damage = damage;
+        this.fallouttime;
+    }
+}
+exports.Missileitem = Missileitem;
+//Missile types
+//   Amplifier:
+//   Ballista: 
+//   BigBertha:
+//   Bombabom: 
+//   BunkerBlocker:
+//   Buzzard: 
+//   ClusterBomb: 
+//   CorporateRaider: 
+//   GutShot: 
+//   TheNuke: 
+//   Yokozuna: 
+//   Zippy: 
+//Defining Missiles:
+// Define the Ballista missile
+const MissileAmplifier = new Missileitem("Amplifier", "A powerful cost effective missile with small radius high damage effect.", 300, // cost
+12, // m/s
+30, // blast radius
+60, //Damage
+2 // Fallout time in minutes
+);
+exports.MissileAmplifier = MissileAmplifier;
+const MissileBallista = new Missileitem("Ballista", "A powerful missile with a wide blast radius.", 500, // cost
+14, // m/s
+50, // blast radius
+40, //Damage
+2 // Fallout time in minutes
+);
+exports.MissileBallista = MissileBallista;
 function classify(item) {
     switch (item.itemType) {
         case "Echo":
