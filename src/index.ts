@@ -381,6 +381,18 @@ const MissileBallista = new Missileitem(
     4    // Fallout time in minutes
   );
 
+  const MissileZippy = new Missileitem(
+    "IDHERE",
+    "Zippy",
+    "A small but very fast missile",
+    600, // cost
+    "", //Image
+    25,  // m/s
+    20,  // blast radius
+    25,  //Damage
+    2    // Fallout time in minutes
+  );
+
 
 function classify(item: any) {
     switch (item.itemType) {
@@ -492,7 +504,7 @@ export {
     MissileAmplifier,
     MissileBallista,
     MissileClusterBomb,
-
+    MissileZippy,
 
     PlayerMissileHit,
     PlayerLandmineHit,

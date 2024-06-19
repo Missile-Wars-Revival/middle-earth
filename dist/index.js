@@ -5,7 +5,7 @@
  * The server can relay this datatypes not unlike a TURN server in P2P communication.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.MissileGroup = exports.FetchMissiles = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.MissileClusterBomb = exports.MissileBallista = exports.MissileAmplifier = exports.Missileitem = exports.GameItem = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = void 0;
+exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.MissileGroup = exports.FetchMissiles = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.MissileZippy = exports.MissileClusterBomb = exports.MissileBallista = exports.MissileAmplifier = exports.Missileitem = exports.GameItem = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = void 0;
 const msgpack_lite_1 = require("msgpack-lite");
 // Base Types. You likely won't directly use these types.
 class WebSocketMessage {
@@ -286,6 +286,14 @@ const MissileClusterBomb = new Missileitem("IDHERE", //ID
 4 // Fallout time in minutes
 );
 exports.MissileClusterBomb = MissileClusterBomb;
+const MissileZippy = new Missileitem("IDHERE", "Zippy", "A small but very fast missile", 600, // cost
+"", //Image
+25, // m/s
+20, // blast radius
+25, //Damage
+2 // Fallout time in minutes
+);
+exports.MissileZippy = MissileZippy;
 function classify(item) {
     switch (item.itemType) {
         case "Echo":
