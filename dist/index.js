@@ -257,7 +257,7 @@ exports.Missileitem = Missileitem;
 //   TheNuke: 
 //   Yokozuna: 
 //   Zippy: 
-//Defining Missiles:
+// Defining Missiles:
 // Define the Ballista missile
 const MissileAmplifier = new Missileitem("IDHERE", //ID
 "Amplifier", //Name
