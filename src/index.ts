@@ -300,14 +300,18 @@ class FetchMissiles extends Msg {
 // Entity Definitions
 // Base class for items that can be bought in-game
 abstract class GameItem {
+    id: string;
     name: string;
     description: string;
     cost: number;
+    image: any;
 
-    constructor(name: string, description: string, cost: number) {
+    constructor(id: string, name: string, description: string, cost: number, image: any) {
+      this.id = id;
       this.name = name;
       this.description = description;
       this.cost = cost;
+      this.image = image;
     }
   }
   
@@ -317,13 +321,13 @@ abstract class GameItem {
     damage: number;
     fallouttime: number;
   
-    constructor(name: string, description: string, cost: number,
+    constructor(id: string, name: string, description: string, cost: number, image: any,
                 speed: number, blastRadius: number, damage: number, fallouttime: number) {
-      super(name, description, cost);
+      super(id, name, description, cost, image);
       this.speed = speed;
       this.blastRadius = blastRadius;
       this.damage = damage;
-      this.fallouttime;
+      this.fallouttime = fallouttime;
     }
   }
 
@@ -344,18 +348,22 @@ abstract class GameItem {
 //Defining Missiles:
 // Define the Ballista missile
 const MissileAmplifier = new Missileitem(
-    "Amplifier",
+    "IDHERE", //ID
+    "Amplifier", //Name
     "A powerful cost effective missile with small radius high damage effect.",
     300, // cost
+    "",  // Image
     12,  // m/s
     30,  // blast radius
     60,  //Damage
-    2    // Fallout time in minutes
+    2,   // Fallout time in minutes
   );
 const MissileBallista = new Missileitem(
+    "",
     "Ballista",
     "A powerful missile with a wide blast radius.",
     500, // cost
+    "",  //Image
     14,  // m/s
     50,  // blast radius
     40,  //Damage

@@ -135,17 +135,19 @@ declare class FetchMissiles extends Msg {
     constructor();
 }
 declare abstract class GameItem {
+    id: string;
     name: string;
     description: string;
     cost: number;
-    constructor(name: string, description: string, cost: number);
+    image: any;
+    constructor(id: string, name: string, description: string, cost: number, image: any);
 }
 declare class Missileitem extends GameItem {
     speed: number;
     blastRadius: number;
     damage: number;
     fallouttime: number;
-    constructor(name: string, description: string, cost: number, speed: number, blastRadius: number, damage: number, fallouttime: number);
+    constructor(id: string, name: string, description: string, cost: number, image: any, speed: number, blastRadius: number, damage: number, fallouttime: number);
 }
 declare const MissileAmplifier: Missileitem;
 declare const MissileBallista: Missileitem;
