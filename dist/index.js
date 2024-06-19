@@ -5,7 +5,7 @@
  * The server can relay this datatypes not unlike a TURN server in P2P communication.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.MissileGroup = exports.FetchMissiles = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.MissileBallista = exports.MissileAmplifier = exports.Missileitem = exports.GameItem = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = void 0;
+exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.MissileGroup = exports.FetchMissiles = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.MissileClusterBomb = exports.MissileBallista = exports.MissileAmplifier = exports.Missileitem = exports.GameItem = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = void 0;
 const msgpack_lite_1 = require("msgpack-lite");
 // Base Types. You likely won't directly use these types.
 class WebSocketMessage {
@@ -276,6 +276,16 @@ const MissileBallista = new Missileitem("", "Ballista", "A powerful missile with
 2 // Fallout time in minutes
 );
 exports.MissileBallista = MissileBallista;
+const MissileClusterBomb = new Missileitem("IDHERE", //ID
+"ClusterBomb", //Name
+"Fires a barrage of small missiles in a big radius", 450, // Cost
+"", // Image
+12, // m/s
+60, // blast radius
+20, // Damage
+4 // Fallout time in minutes
+);
+exports.MissileClusterBomb = MissileClusterBomb;
 function classify(item) {
     switch (item.itemType) {
         case "Echo":

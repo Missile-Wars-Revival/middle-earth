@@ -151,8 +151,9 @@ declare class Missileitem extends GameItem {
 }
 declare const MissileAmplifier: Missileitem;
 declare const MissileBallista: Missileitem;
+declare const MissileClusterBomb: Missileitem;
 declare function classify(item: any): Echo | GeoLocation | Player | LocationUpdate | Missile | Landmine | Loot | PlayerMissileHit | PlayerLandmineHit | PlayerLootHit | PlayerMissileMiss | PlayerLandmineMiss | MissileGroup | Missile1 | Missile2 | Missile3 | Landmine1 | Landmine2 | Landmine3 | FetchMissiles;
 declare function zip(wsm: WebSocketMessage): Buffer;
 declare function zip_single(msg: Msg): Buffer;
 declare function unzip(packed: Buffer): WebSocketMessage;
-export { Msg, WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, GameItem, Missileitem, MissileAmplifier, MissileBallista, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, FetchMissiles, MissileGroup, MissileType, Missile1, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3, zip, zip_single, unzip, classify };
+export { Msg, WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, GameItem, Missileitem, MissileAmplifier, MissileBallista, MissileClusterBomb, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, FetchMissiles, MissileGroup, MissileType, Missile1, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3, zip, zip_single, unzip, classify };

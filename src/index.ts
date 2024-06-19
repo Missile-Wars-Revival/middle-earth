@@ -369,6 +369,17 @@ const MissileBallista = new Missileitem(
     40,  //Damage
     2    // Fallout time in minutes
   );
+  const MissileClusterBomb = new Missileitem(
+    "IDHERE", //ID
+    "ClusterBomb", //Name
+    "Fires a barrage of small missiles in a big radius",
+    450, // Cost
+    "",  // Image
+    12,  // m/s
+    60,  // blast radius
+    20,  // Damage
+    4    // Fallout time in minutes
+  );
 
 
 function classify(item: any) {
@@ -480,6 +491,8 @@ export {
     Missileitem,
     MissileAmplifier,
     MissileBallista,
+    MissileClusterBomb,
+
 
     PlayerMissileHit,
     PlayerLandmineHit,
