@@ -381,6 +381,18 @@ const MissileBallista = new Missileitem(
     4    // Fallout time in minutes
   );
 
+  const MissileTheNuke = new Missileitem(
+    "", //ID
+    "TheNuke", //Name
+    "Destructive missile that leaves trace everywhere it lands",
+    5000, // cost
+    "",   //image
+    5,    //m/s
+    200,  // blast radius
+    100,  //Damage
+    30    // Fallout time in minutes
+  );
+
   const MissileZippy = new Missileitem(
     "IDHERE",
     "Zippy",
@@ -504,6 +516,7 @@ export {
     MissileAmplifier,
     MissileBallista,
     MissileClusterBomb,
+    MissileTheNuke,
     MissileZippy,
 
     PlayerMissileHit,

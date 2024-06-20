@@ -5,7 +5,7 @@
  * The server can relay this datatypes not unlike a TURN server in P2P communication.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.MissileGroup = exports.FetchMissiles = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.MissileZippy = exports.MissileClusterBomb = exports.MissileBallista = exports.MissileAmplifier = exports.Missileitem = exports.GameItem = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = void 0;
+exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.MissileGroup = exports.FetchMissiles = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.MissileZippy = exports.MissileTheNuke = exports.MissileClusterBomb = exports.MissileBallista = exports.MissileAmplifier = exports.Missileitem = exports.GameItem = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = void 0;
 const msgpack_lite_1 = require("msgpack-lite");
 // Base Types. You likely won't directly use these types.
 class WebSocketMessage {
@@ -286,6 +286,16 @@ const MissileClusterBomb = new Missileitem("IDHERE", //ID
 4 // Fallout time in minutes
 );
 exports.MissileClusterBomb = MissileClusterBomb;
+const MissileTheNuke = new Missileitem("", //ID
+"TheNuke", //Name
+"Destructive missile that leaves trace everywhere it lands", 5000, // cost
+"", //image
+5, //m/s
+200, // blast radius
+100, //Damage
+30 // Fallout time in minutes
+);
+exports.MissileTheNuke = MissileTheNuke;
 const MissileZippy = new Missileitem("IDHERE", "Zippy", "A small but very fast missile", 600, // cost
 "", //Image
 25, // m/s
