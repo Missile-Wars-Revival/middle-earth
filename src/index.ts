@@ -297,6 +297,114 @@ class FetchMissiles extends Msg {
     }
 }
 
+// Entity Definitions
+// Base class for items that can be bought in-game
+abstract class GameItem {
+    id: string;
+    name: string;
+    description: string;
+    cost: number;
+    image: any;
+
+    constructor(id: string, name: string, description: string, cost: number, image: any) {
+      this.id = id;
+      this.name = name;
+      this.description = description;
+      this.cost = cost;
+      this.image = image;
+    }
+  }
+  
+  class Missileitem extends GameItem {
+    speed: number;
+    blastRadius: number;
+    damage: number;
+    fallouttime: number;
+  
+    constructor(id: string, name: string, description: string, cost: number, image: any,
+                speed: number, blastRadius: number, damage: number, fallouttime: number) {
+      super(id, name, description, cost, image);
+      this.speed = speed;
+      this.blastRadius = blastRadius;
+      this.damage = damage;
+      this.fallouttime = fallouttime;
+    }
+  }
+
+//Missile types
+//   Amplifier:
+//   Ballista: 
+//   BigBertha:
+//   Bombabom: 
+//   BunkerBlocker:
+//   Buzzard: 
+//   ClusterBomb: 
+//   CorporateRaider: 
+//   GutShot: 
+//   TheNuke: 
+//   Yokozuna: 
+//   Zippy: 
+
+// Defining Missiles:
+// Define the Ballista missile
+const MissileAmplifier = new Missileitem(
+    "IDHERE", //ID
+    "Amplifier", //Name
+    "A powerful cost effective missile with small radius high damage effect.",
+    300, // cost
+    "",  // Image
+    12,  // m/s
+    30,  // blast radius
+    60,  //Damage
+    2,   // Fallout time in minutes
+  );
+const MissileBallista = new Missileitem(
+    "",
+    "Ballista",
+    "A powerful missile with a wide blast radius.",
+    500, // cost
+    "",  //Image
+    14,  // m/s
+    50,  // blast radius
+    40,  //Damage
+    2    // Fallout time in minutes
+  );
+  const MissileClusterBomb = new Missileitem(
+    "IDHERE", //ID
+    "ClusterBomb", //Name
+    "Fires a barrage of small missiles in a big radius",
+    450, // Cost
+    "",  // Image
+    12,  // m/s
+    60,  // blast radius
+    20,  // Damage
+    4    // Fallout time in minutes
+  );
+
+  const MissileTheNuke = new Missileitem(
+    "", //ID
+    "TheNuke", //Name
+    "Destructive missile that leaves trace everywhere it lands",
+    5000, // cost
+    "",   //image
+    5,    //m/s
+    200,  // blast radius
+    100,  //Damage
+    30    // Fallout time in minutes
+  );
+
+  const MissileZippy = new Missileitem(
+    "IDHERE",
+    "Zippy",
+    "A small but very fast missile",
+    600, // cost
+    "", //Image
+    25,  // m/s
+    20,  // blast radius
+    25,  //Damage
+    2    // Fallout time in minutes
+  );
+
 
 function classify(item: any) {
     switch (item.itemType) {
@@ -403,6 +511,14 @@ export {
     Missile,
     Landmine,
     Loot,
+    GameItem,
+    Missileitem,
+    MissileAmplifier,
+    MissileBallista,
+    MissileClusterBomb,
+    MissileTheNuke,
+    MissileZippy,
+
     PlayerMissileHit,
     PlayerLandmineHit,
     PlayerLootHit,
