@@ -225,11 +225,11 @@ exports.FetchMissiles = FetchMissiles;
 // Entity Definitions
 // Base class for items that can be bought in-game
 class GameItem {
-    constructor(id, name, description, cost, image) {
+    constructor(id, name, description, price, image) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.cost = cost;
+        this.price = price;
         this.image = image;
     }
 }

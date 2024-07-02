@@ -303,14 +303,14 @@ abstract class GameItem {
     id: string;
     name: string;
     description: string;
-    cost: number;
+    price: number;
     image: any;
 
-    constructor(id: string, name: string, description: string, cost: number, image: any) {
+    constructor(id: string, name: string, description: string, price: number, image: any) {
       this.id = id;
       this.name = name;
       this.description = description;
-      this.cost = cost;
+      this.price = price;
       this.image = image;
     }
   }

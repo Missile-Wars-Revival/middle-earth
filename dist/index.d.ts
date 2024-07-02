@@ -138,9 +138,9 @@ declare abstract class GameItem {
     id: string;
     name: string;
     description: string;
-    cost: number;
+    price: number;
     image: any;
-    constructor(id: string, name: string, description: string, cost: number, image: any);
+    constructor(id: string, name: string, description: string, price: number, image: any);
 }
 declare class Missileitem extends GameItem {
     speed: number;
