@@ -137,6 +137,7 @@ declare class FetchMissiles extends Msg {
 declare abstract class GameItem {
     id: string;
     name: string;
+    type: string;
     description: string;
     price: number;
     image: any;

@@ -302,6 +302,7 @@ class FetchMissiles extends Msg {
 abstract class GameItem {
     id: string;
     name: string;
+    type: string;
     description: string;
     price: number;
     image: any;
