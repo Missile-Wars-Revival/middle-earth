@@ -72,7 +72,7 @@ class Missile extends Msg {
     static from_db(db_entry) {
         let destination = new GeoLocation(db_entry.destLat, db_entry.destLong);
         let currentLocation = new GeoLocation(db_entry.currentLat, db_entry.currentLong);
-        return new Missile(db_entry.type, db_entry.status, destination, currentLocation, db_entry.missileId, db_entry.radius, db_entry.sentbyusername, db_entry.timesent, db_entry.etatimetoimpact);
+        return new Missile(db_entry.type, db_entry.status, destination, currentLocation, db_entry.id, db_entry.radius, db_entry.sentBy, db_entry.sentAt, db_entry.timeToImpact);
     }
 }
 exports.Missile = Missile;

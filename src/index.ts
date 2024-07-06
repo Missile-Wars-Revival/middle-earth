@@ -108,11 +108,11 @@ class Missile extends Msg {
                            db_entry.status,
                            destination,
                            currentLocation,
-                           db_entry.missileId,
+                           db_entry.id,
                            db_entry.radius,
-                           db_entry.sentbyusername,
-                           db_entry.timesent,
-                           db_entry.etatimetoimpact);
+                           db_entry.sentBy,
+                           db_entry.sentAt,
+                           db_entry.timeToImpact);
     }
 
 }
