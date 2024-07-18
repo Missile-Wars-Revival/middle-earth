@@ -85,6 +85,11 @@ class Landmine extends Msg {
         this.placedtime = placedtime;
         this.etaexpiretime = etaexpiretime;
     }
+    static from_db(db_entry) {
+        let location = new GeoLocation(db_entry.locLat, db_entry.locLong);
+        let etaexpiretime = db_entry.Expires;
+        return new Landmine(db_entry.type, location, db_entry.placedby, db_entry.placedtime, etaexpiretime);
+    }
 }
 exports.Landmine = Landmine;
 class Loot extends Msg {
@@ -93,6 +98,11 @@ class Loot extends Msg {
         this.location = location;
         this.rarity = rarity;
         this.expiretime = expiretime;
+    }
+    static from_db(db_entry) {
+        let location = new GeoLocation(db_entry.locLat, db_entry.locLong);
+        let expiretime = db_entry.Expires;
+        return new Loot(location, db_entry.rarity, expiretime);
     }
 }
 exports.Loot = Loot;

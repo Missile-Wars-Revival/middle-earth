@@ -52,12 +52,14 @@ declare class Landmine extends Msg {
     placedtime: string;
     etaexpiretime: string;
     constructor(type: string, location: GeoLocation, placedby: string, placedtime: string, etaexpiretime: string);
+    static from_db(db_entry: any): Landmine;
 }
 declare class Loot extends Msg {
     location: GeoLocation;
     rarity: string;
     expiretime: string;
     constructor(location: GeoLocation, rarity: string, expiretime: string);
+    static from_db(db_entry: any): Loot;
 }
 /**
  * A hit confirmation message is sent to the player who fired the missile and the player who was hit.
