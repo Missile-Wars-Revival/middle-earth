@@ -137,10 +137,11 @@ class Landmine extends Msg {
     static from_db(db_entry: any) {
         let location = new GeoLocation(db_entry.locLat, db_entry.locLong);
         let etaexpiretime = db_entry.Expires
+        let placedby = db_entry.placedBy
         return new Landmine(
             db_entry.type,
             location,
-            db_entry.placedby,
+            placedby,
             db_entry.placedtime,
             etaexpiretime);
     }
