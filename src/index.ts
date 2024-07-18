@@ -75,9 +75,9 @@ class Missile extends Msg {
     currentLocation: GeoLocation;
     missileId: Number; // Unique identifier for the missile. Only unique for each player. 
     radius: number;
-    sentbyusername: string;
-    timesent: string;
-    etatimetoimpact: string;
+    sentby: string;
+    sentAt: string;
+    timeToImpact: string;
 
     constructor(type: string,
         status: string,
@@ -85,9 +85,9 @@ class Missile extends Msg {
         currentLocation: GeoLocation,
         missileId: number,
         radius: number,
-        sentbyusername: string,
-        timesent: string,
-        etatimetoimpact: string) {
+        sentby: string,
+        sentAt: string,
+        timeToImpact: string) {
         super("Missile");
         this.type = type;
         this.status = status;
@@ -95,9 +95,9 @@ class Missile extends Msg {
         this.currentLocation = currentLocation;
         this.missileId = missileId;
         this.radius = radius;
-        this.sentbyusername = sentbyusername;
-        this.timesent = timesent;
-        this.etatimetoimpact = etatimetoimpact;
+        this.sentby = sentby;
+        this.sentAt = sentAt;
+        this.timeToImpact = timeToImpact;
     }
 
     static from_db(db_entry: any) {
@@ -110,9 +110,9 @@ class Missile extends Msg {
                            currentLocation,
                            db_entry.missileId,
                            db_entry.radius,
-                           db_entry.sentbyusername,
-                           db_entry.timesent,
-                           db_entry.etatimetoimpact);
+                           db_entry.sentby,
+                           db_entry.sentAt,
+                           db_entry.timeToImpact);
     }
 
 }
