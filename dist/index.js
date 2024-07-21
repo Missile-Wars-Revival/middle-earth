@@ -85,8 +85,9 @@ class Missile extends Msg {
 }
 exports.Missile = Missile;
 class Landmine extends Msg {
-    constructor(type, location, placedby, placedtime, etaexpiretime) {
+    constructor(id, type, location, placedby, placedtime, etaexpiretime) {
         super("Landmine");
+        this.id = id;
         this.type = type;
         this.location = location;
         this.placedby = placedby;
@@ -95,9 +96,9 @@ class Landmine extends Msg {
     }
     static from_db(db_entry) {
         let location = new GeoLocation(db_entry.locLat, db_entry.locLong);
-        let etaexpiretime = db_entry.Expires;
         let placedby = db_entry.placedBy;
-        return new Landmine(db_entry.type, location, placedby, db_entry.placedtime, etaexpiretime);
+        let etaexpiretime = db_entry.Expires;
+        return new Landmine(db_entry.id, db_entry.type, location, placedby, db_entry.placedtime, etaexpiretime);
     }
 }
 exports.Landmine = Landmine;
