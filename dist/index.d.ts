@@ -144,5 +144,5 @@ declare class FetchMissiles extends Msg {
 declare function classify(item: any): Echo | GeoLocation | Player | LocationUpdate | Missile | Landmine | Loot | PlayerMissileHit | PlayerLandmineHit | PlayerLootHit | PlayerMissileMiss | PlayerLandmineMiss | MissileGroup | Missile1 | Missile2 | Missile3 | Landmine1 | Landmine2 | Landmine3 | FetchMissiles;
 declare function zip(wsm: WebSocketMessage): Buffer;
 declare function zip_single(msg: WSMsg): Buffer;
-declare function unzip(packed: Buffer): WebSocketMessage;
+declare function unzip(packed: Buffer | Uint8Array | number[]): WebSocketMessage;
 export { WSMsg, Msg, WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, FetchMissiles, MissileGroup, MissileType, Missile1, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3, zip, zip_single, unzip, classify };

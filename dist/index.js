@@ -330,11 +330,13 @@ function zip_single(msg) {
 }
 exports.zip_single = zip_single;
 function unzip(packed) {
-    let unpacked = JSON.parse((0, msgpack_lite_1.decode)(Buffer.from(packed)));
+    // Assuming `decode` function can take a Uint8Array and return a string
+    let unpackedString = (0, msgpack_lite_1.decode)(packed);
+    let unpacked = JSON.parse(unpackedString);
     let to_instantiate = unpacked.messages;
     let instantiated = [];
-    to_instantiate.forEach(function (item) {
-        instantiated.push(new WSMsg(item.itemType, item.data)); // Assuming `item` directly provides itemType and data.
+    to_instantiate.forEach((item) => {
+        instantiated.push(new WSMsg(item.itemType, item.data)); // Ensure WSMsg is properly instantiated
     });
     return new WebSocketMessage(instantiated);
 }

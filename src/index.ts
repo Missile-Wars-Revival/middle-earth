@@ -415,12 +415,14 @@ function zip_single(msg: WSMsg) {
     return encode(JSON.stringify(new WebSocketMessage([msg])));
 }
 
-function unzip(packed: Buffer) {
-    let unpacked: WebSocketMessage = JSON.parse(decode(Buffer.from(packed)));
+function unzip(packed: Buffer | Uint8Array | number[]) {
+    // Assuming `decode` function can take a Uint8Array and return a string
+    let unpackedString = decode(packed);
+    let unpacked = JSON.parse(unpackedString);
     let to_instantiate = unpacked.messages;
     let instantiated: WSMsg[] = [];
-    to_instantiate.forEach(function (item) {
-        instantiated.push(new WSMsg(item.itemType, item.data));  // Assuming `item` directly provides itemType and data.
+    to_instantiate.forEach((item: { itemType: string; data: any; }) => {
+        instantiated.push(new WSMsg(item.itemType, item.data)); // Ensure WSMsg is properly instantiated
     });
     return new WebSocketMessage(instantiated);
 }
