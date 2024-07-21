@@ -22,6 +22,13 @@ class Msg {
 }
 exports.Msg = Msg;
 ;
+class WSMsg {
+    constructor(itemType, data) {
+        this.itemType = itemType;
+        this.data = data;
+    }
+}
+;
 // Client <--> Server
 class Echo extends Msg {
     constructor(text) {
@@ -325,7 +332,9 @@ function unzip(packed) {
     let unpacked = JSON.parse((0, msgpack_lite_1.decode)(Buffer.from(packed)));
     let to_instantiate = unpacked.messages;
     let instantiated = [];
-    to_instantiate.forEach(function (item) { instantiated.push(classify(item)); });
+    to_instantiate.forEach(function (item) {
+        instantiated.push(new WSMsg(item.itemType, item.data)); // Assuming `item` directly provides itemType and data.
+    });
     return new WebSocketMessage(instantiated);
 }
 exports.unzip = unzip;

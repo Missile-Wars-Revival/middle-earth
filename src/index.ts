@@ -9,8 +9,8 @@ import { encode, decode } from 'msgpack-lite';
 // Base Types. You likely won't directly use these types.
 
 class WebSocketMessage {
-    messages: Msg[];
-    constructor(messages: Msg[]) {
+    messages: WSMsg[];
+    constructor(messages: WSMsg[]) {
         this.messages = messages;
     }
 };
@@ -19,6 +19,16 @@ class Msg {
     itemType: string
     constructor(itemType: string) {
         this.itemType = itemType;
+    }
+};
+
+class WSMsg {
+    itemType: string;
+    data: any;  // Ideally, this should be more specific than 'any'.
+
+    constructor(itemType: string, data: any) {
+        this.itemType = itemType;
+        this.data = data;
     }
 };
 
@@ -401,17 +411,20 @@ function zip(wsm: WebSocketMessage) {
     return packed;
 }
 
-function zip_single(msg: Msg) {
+function zip_single(msg: WSMsg) {
     return encode(JSON.stringify(new WebSocketMessage([msg])));
 }
 
 function unzip(packed: Buffer) {
     let unpacked: WebSocketMessage = JSON.parse(decode(Buffer.from(packed)));
     let to_instantiate = unpacked.messages;
-    let instantiated: Msg[] = [];
-    to_instantiate.forEach(function (item) { instantiated.push(classify(item)) });
+    let instantiated: WSMsg[] = [];
+    to_instantiate.forEach(function (item) {
+        instantiated.push(new WSMsg(item.itemType, item.data));  // Assuming `item` directly provides itemType and data.
+    });
     return new WebSocketMessage(instantiated);
 }
+
 
 export {
     Msg,
