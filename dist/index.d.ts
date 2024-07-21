@@ -46,12 +46,13 @@ declare class Missile extends Msg {
     static from_db(db_entry: any): Missile;
 }
 declare class Landmine extends Msg {
+    id: number;
     type: string;
     location: GeoLocation;
     placedby: string;
     placedtime: string;
     etaexpiretime: string;
-    constructor(type: string, location: GeoLocation, placedby: string, placedtime: string, etaexpiretime: string);
+    constructor(id: number, type: string, location: GeoLocation, placedby: string, placedtime: string, etaexpiretime: string);
     static from_db(db_entry: any): Landmine;
 }
 declare class Loot extends Msg {
