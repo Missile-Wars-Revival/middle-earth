@@ -427,6 +427,7 @@ function unzip(packed: Buffer) {
 
 
 export {
+    WSMsg,
     Msg,
     WebSocketMessage,
     GeoLocation,
