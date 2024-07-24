@@ -287,6 +287,12 @@ function classify(item) {
             return new FetchMissiles();
             break;
         case "MissileGroup":
+            let missiles = item.missiles;
+            let instantiated = [];
+            missiles.forEach(function (msl) {
+                let missile = msl;
+                instantiated.push(missile);
+            });
             let misgrp = item;
             return misgrp;
             break;
