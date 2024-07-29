@@ -161,11 +161,13 @@ class Landmine extends Msg {
 }
 
 class Loot extends Msg {
+    id: number
     location: GeoLocation;
     rarity: string;
     expiretime: string;
-    constructor(location: GeoLocation, rarity: string, expiretime: string) {
+    constructor(id: number, location: GeoLocation, rarity: string, expiretime: string) {
         super("Loot");
+        this.id = id;
         this.location = location;
         this.rarity = rarity;
         this.expiretime = expiretime;
@@ -174,6 +176,7 @@ class Loot extends Msg {
         let location = new GeoLocation(db_entry.locLat, db_entry.locLong);
         let expiretime = db_entry.Expires
         return new Loot(
+            db_entry.id,
             location,
             db_entry.rarity,
             expiretime);

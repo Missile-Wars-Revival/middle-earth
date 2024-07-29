@@ -61,10 +61,11 @@ declare class Landmine extends Msg {
     static from_db(db_entry: any): Landmine;
 }
 declare class Loot extends Msg {
+    id: number;
     location: GeoLocation;
     rarity: string;
     expiretime: string;
-    constructor(location: GeoLocation, rarity: string, expiretime: string);
+    constructor(id: number, location: GeoLocation, rarity: string, expiretime: string);
     static from_db(db_entry: any): Loot;
 }
 /**
