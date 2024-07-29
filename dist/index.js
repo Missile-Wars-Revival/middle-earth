@@ -5,7 +5,7 @@
  * The server can relay this datatypes not unlike a TURN server in P2P communication.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.MissileGroup = exports.FetchMissiles = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = void 0;
+exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.MissileGroup = exports.FetchMissiles = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = exports.WSMsg = void 0;
 const msgpack_lite_1 = require("msgpack-lite");
 // Base Types. You likely won't directly use these types.
 class WebSocketMessage {
@@ -21,6 +21,14 @@ class Msg {
     }
 }
 exports.Msg = Msg;
+;
+class WSMsg {
+    constructor(itemType, data) {
+        this.itemType = itemType;
+        this.data = data;
+    }
+}
+exports.WSMsg = WSMsg;
 ;
 // Client <--> Server
 class Echo extends Msg {
@@ -95,8 +103,9 @@ class Landmine extends Msg {
 }
 exports.Landmine = Landmine;
 class Loot extends Msg {
-    constructor(location, rarity, expiretime) {
+    constructor(id, location, rarity, expiretime) {
         super("Loot");
+        this.id = id;
         this.location = location;
         this.rarity = rarity;
         this.expiretime = expiretime;
@@ -104,7 +113,7 @@ class Loot extends Msg {
     static from_db(db_entry) {
         let location = new GeoLocation(db_entry.locLat, db_entry.locLong);
         let expiretime = db_entry.Expires;
-        return new Loot(location, db_entry.rarity, expiretime);
+        return new Loot(db_entry.id, location, db_entry.rarity, expiretime);
     }
 }
 exports.Loot = Loot;
@@ -323,10 +332,14 @@ function zip_single(msg) {
 }
 exports.zip_single = zip_single;
 function unzip(packed) {
-    let unpacked = JSON.parse((0, msgpack_lite_1.decode)(Buffer.from(packed)));
+    // Assuming `decode` function can take a Uint8Array and return a string
+    let unpackedString = (0, msgpack_lite_1.decode)(packed);
+    let unpacked = JSON.parse(unpackedString);
     let to_instantiate = unpacked.messages;
     let instantiated = [];
-    to_instantiate.forEach(function (item) { instantiated.push(classify(item)); });
+    to_instantiate.forEach((item) => {
+        instantiated.push(new WSMsg(item.itemType, item.data)); // Ensure WSMsg is properly instantiated
+    });
     return new WebSocketMessage(instantiated);
 }
 exports.unzip = unzip;

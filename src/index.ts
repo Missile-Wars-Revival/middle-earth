@@ -9,8 +9,8 @@ import { encode, decode } from 'msgpack-lite';
 // Base Types. You likely won't directly use these types.
 
 class WebSocketMessage {
-    messages: Msg[];
-    constructor(messages: Msg[]) {
+    messages: WSMsg[];
+    constructor(messages: WSMsg[]) {
         this.messages = messages;
     }
 };
@@ -19,6 +19,16 @@ class Msg {
     itemType: string
     constructor(itemType: string) {
         this.itemType = itemType;
+    }
+};
+
+class WSMsg {
+    itemType: string;
+    data: any;  // Ideally, this should be more specific than 'any'.
+
+    constructor(itemType: string, data: any) {
+        this.itemType = itemType;
+        this.data = data;
     }
 };
 
@@ -151,11 +161,13 @@ class Landmine extends Msg {
 }
 
 class Loot extends Msg {
+    id: number
     location: GeoLocation;
     rarity: string;
     expiretime: string;
-    constructor(location: GeoLocation, rarity: string, expiretime: string) {
+    constructor(id: number, location: GeoLocation, rarity: string, expiretime: string) {
         super("Loot");
+        this.id = id;
         this.location = location;
         this.rarity = rarity;
         this.expiretime = expiretime;
@@ -164,6 +176,7 @@ class Loot extends Msg {
         let location = new GeoLocation(db_entry.locLat, db_entry.locLong);
         let expiretime = db_entry.Expires
         return new Loot(
+            db_entry.id,
             location,
             db_entry.rarity,
             expiretime);
@@ -404,19 +417,25 @@ function zip(wsm: WebSocketMessage) {
     return packed;
 }
 
-function zip_single(msg: Msg) {
+function zip_single(msg: WSMsg) {
     return encode(JSON.stringify(new WebSocketMessage([msg])));
 }
 
-function unzip(packed: Buffer) {
-    let unpacked: WebSocketMessage = JSON.parse(decode(Buffer.from(packed)));
+function unzip(packed: Buffer | Uint8Array | number[]) {
+    // Assuming `decode` function can take a Uint8Array and return a string
+    let unpackedString = decode(packed);
+    let unpacked = JSON.parse(unpackedString);
     let to_instantiate = unpacked.messages;
-    let instantiated: Msg[] = [];
-    to_instantiate.forEach(function (item) { instantiated.push(classify(item)) });
+    let instantiated: WSMsg[] = [];
+    to_instantiate.forEach((item: { itemType: string; data: any; }) => {
+        instantiated.push(new WSMsg(item.itemType, item.data)); // Ensure WSMsg is properly instantiated
+    });
     return new WebSocketMessage(instantiated);
 }
 
+
 export {
+    WSMsg,
     Msg,
     WebSocketMessage,
     GeoLocation,
