@@ -65,7 +65,7 @@ class LocationUpdate extends Msg {
 exports.LocationUpdate = LocationUpdate;
 ;
 class Missile extends Msg {
-    constructor(type, status, destination, currentLocation, missileId, radius, sentbyusername, timesent, etatimetoimpact) {
+    constructor(type, status, destination, currentLocation, missileId, radius, damage, sentbyusername, timesent, etatimetoimpact) {
         super("Missile");
         this.type = type;
         this.status = status;
@@ -73,6 +73,7 @@ class Missile extends Msg {
         this.currentLocation = currentLocation;
         this.missileId = missileId;
         this.radius = radius;
+        this.damage = damage;
         this.sentbyusername = sentbyusername;
         this.timesent = timesent;
         this.etatimetoimpact = etatimetoimpact;
@@ -80,7 +81,7 @@ class Missile extends Msg {
     static from_db(db_entry) {
         let destination = new GeoLocation(db_entry.destLat, db_entry.destLong);
         let currentLocation = new GeoLocation(db_entry.currentLat, db_entry.currentLong);
-        return new Missile(db_entry.type, db_entry.status, destination, currentLocation, db_entry.id, db_entry.radius, db_entry.sentBy, db_entry.sentAt, db_entry.timeToImpact);
+        return new Missile(db_entry.type, db_entry.status, destination, currentLocation, db_entry.id, db_entry.radius, db_entry.damage, db_entry.sentBy, db_entry.sentAt, db_entry.timeToImpact);
     }
 }
 exports.Missile = Missile;

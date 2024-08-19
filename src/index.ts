@@ -85,6 +85,7 @@ class Missile extends Msg {
     currentLocation: GeoLocation;
     missileId: Number; // Unique identifier for the missile. Only unique for each player. 
     radius: number;
+    damage: number;
     sentbyusername: string;
     timesent: string;
     etatimetoimpact: string;
@@ -95,6 +96,7 @@ class Missile extends Msg {
         currentLocation: GeoLocation,
         missileId: number,
         radius: number,
+        damage: number,
         sentbyusername: string,
         timesent: string,
         etatimetoimpact: string) {
@@ -105,6 +107,7 @@ class Missile extends Msg {
         this.currentLocation = currentLocation;
         this.missileId = missileId;
         this.radius = radius;
+        this.damage = damage;
         this.sentbyusername = sentbyusername;
         this.timesent = timesent;
         this.etatimetoimpact = etatimetoimpact;
@@ -120,6 +123,7 @@ class Missile extends Msg {
                            currentLocation,
                            db_entry.id,
                            db_entry.radius,
+                           db_entry.damage,
                            db_entry.sentBy,
                            db_entry.sentAt,
                            db_entry.timeToImpact);
