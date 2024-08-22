@@ -134,16 +134,18 @@ class Missile extends Msg {
 class Landmine extends Msg {
     id: number;
     type: string;
+    damage: string;
     location: GeoLocation;
     placedby: string;
     placedtime: string;
     etaexpiretime: string;
-    constructor(id: number, type: string, location: GeoLocation,
+    constructor(id: number, type: string, damage: string, location: GeoLocation,
         placedby: string, placedtime: string, etaexpiretime: string
     ) {
         super("Landmine");
         this.id = id;
         this.type = type;
+        this.damage = damage;
         this.location = location;
         this.placedby = placedby;
         this.placedtime = placedtime;
@@ -157,6 +159,7 @@ class Landmine extends Msg {
         return new Landmine(
             db_entry.id,
             db_entry.type,
+            db_entry.damage,
             location,
             placedby,
             db_entry.placedtime,
