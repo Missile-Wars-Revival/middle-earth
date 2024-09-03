@@ -5,7 +5,7 @@
  * The server can relay this datatypes not unlike a TURN server in P2P communication.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.MissileGroup = exports.FetchMissiles = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = void 0;
+exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.MissileGroup = exports.FetchMissiles = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = exports.WSMsg = void 0;
 const msgpack_lite_1 = require("msgpack-lite");
 // Base Types. You likely won't directly use these types.
 class WebSocketMessage {
@@ -21,6 +21,14 @@ class Msg {
     }
 }
 exports.Msg = Msg;
+;
+class WSMsg {
+    constructor(itemType, data) {
+        this.itemType = itemType;
+        this.data = data;
+    }
+}
+exports.WSMsg = WSMsg;
 ;
 // Client <--> Server
 class Echo extends Msg {
@@ -57,13 +65,14 @@ class LocationUpdate extends Msg {
 exports.LocationUpdate = LocationUpdate;
 ;
 class Missile extends Msg {
-    constructor(type, status, destination, currentLocation, missileId, radius, sentbyusername, timesent, etatimetoimpact) {
+    constructor(type, status, destination, currentLocation, missileId, damage, radius, sentbyusername, timesent, etatimetoimpact) {
         super("Missile");
         this.type = type;
         this.status = status;
         this.destination = destination;
         this.currentLocation = currentLocation;
         this.missileId = missileId;
+        this.damage = damage;
         this.radius = radius;
         this.sentbyusername = sentbyusername;
         this.timesent = timesent;
@@ -72,15 +81,17 @@ class Missile extends Msg {
     static from_db(db_entry) {
         let destination = new GeoLocation(db_entry.destLat, db_entry.destLong);
         let currentLocation = new GeoLocation(db_entry.currentLat, db_entry.currentLong);
-        return new Missile(db_entry.type, db_entry.status, destination, currentLocation, db_entry.id, db_entry.radius, db_entry.sentBy, db_entry.sentAt, db_entry.timeToImpact);
+        return new Missile(db_entry.type, db_entry.status, destination, currentLocation, db_entry.id, db_entry.damage, db_entry.radius, db_entry.sentBy, db_entry.sentAt, db_entry.timeToImpact);
     }
 }
 exports.Missile = Missile;
 class Landmine extends Msg {
-    constructor(id, type, location, placedby, placedtime, etaexpiretime) {
+    constructor(id, type, damage, location, placedby, placedtime, etaexpiretime) {
         super("Landmine");
         this.id = id;
+        this.id = id;
         this.type = type;
+        this.damage = damage;
         this.location = location;
         this.placedby = placedby;
         this.placedtime = placedtime;
@@ -89,14 +100,16 @@ class Landmine extends Msg {
     static from_db(db_entry) {
         let location = new GeoLocation(db_entry.locLat, db_entry.locLong);
         let placedby = db_entry.placedBy;
+        let placedby = db_entry.placedBy;
         let etaexpiretime = db_entry.Expires;
-        return new Landmine(db_entry.id, db_entry.type, location, placedby, db_entry.placedtime, etaexpiretime);
+        return new Landmine(db_entry.id, db_entry.type, db_entry.damage, location, placedby, db_entry.placedtime, etaexpiretime);
     }
 }
 exports.Landmine = Landmine;
 class Loot extends Msg {
-    constructor(location, rarity, expiretime) {
+    constructor(id, location, rarity, expiretime) {
         super("Loot");
+        this.id = id;
         this.location = location;
         this.rarity = rarity;
         this.expiretime = expiretime;
@@ -104,7 +117,7 @@ class Loot extends Msg {
     static from_db(db_entry) {
         let location = new GeoLocation(db_entry.locLat, db_entry.locLong);
         let expiretime = db_entry.Expires;
-        return new Loot(location, db_entry.rarity, expiretime);
+        return new Loot(db_entry.id, location, db_entry.rarity, expiretime);
     }
 }
 exports.Loot = Loot;
@@ -323,10 +336,14 @@ function zip_single(msg) {
 }
 exports.zip_single = zip_single;
 function unzip(packed) {
-    let unpacked = JSON.parse((0, msgpack_lite_1.decode)(Buffer.from(packed)));
+    // Assuming `decode` function can take a Uint8Array and return a string
+    let unpackedString = (0, msgpack_lite_1.decode)(packed);
+    let unpacked = JSON.parse(unpackedString);
     let to_instantiate = unpacked.messages;
     let instantiated = [];
-    to_instantiate.forEach(function (item) { instantiated.push(classify(item)); });
+    to_instantiate.forEach((item) => {
+        instantiated.push(new WSMsg(item.itemType, item.data)); // Ensure WSMsg is properly instantiated
+    });
     return new WebSocketMessage(instantiated);
 }
 exports.unzip = unzip;

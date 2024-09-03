@@ -5,12 +5,17 @@
  */
 /// <reference types="node" />
 declare class WebSocketMessage {
-    messages: Msg[];
-    constructor(messages: Msg[]);
+    messages: WSMsg[];
+    constructor(messages: WSMsg[]);
 }
 declare class Msg {
     itemType: string;
     constructor(itemType: string);
+}
+declare class WSMsg {
+    itemType: string;
+    data: any;
+    constructor(itemType: string, data: any);
 }
 declare class Echo extends Msg {
     text: string;
@@ -38,28 +43,32 @@ declare class Missile extends Msg {
     destination: GeoLocation;
     currentLocation: GeoLocation;
     missileId: Number;
+    damage: number;
     radius: number;
     sentbyusername: string;
     timesent: string;
     etatimetoimpact: string;
-    constructor(type: string, status: string, destination: GeoLocation, currentLocation: GeoLocation, missileId: number, radius: number, sentbyusername: string, timesent: string, etatimetoimpact: string);
+    constructor(type: string, status: string, destination: GeoLocation, currentLocation: GeoLocation, missileId: number, damage: number, radius: number, sentbyusername: string, timesent: string, etatimetoimpact: string);
     static from_db(db_entry: any): Missile;
 }
 declare class Landmine extends Msg {
     id: number;
+    id: number;
     type: string;
+    damage: number;
     location: GeoLocation;
     placedby: string;
     placedtime: string;
     etaexpiretime: string;
-    constructor(id: number, type: string, location: GeoLocation, placedby: string, placedtime: string, etaexpiretime: string);
+    constructor(id: number, type: string, damage: number, location: GeoLocation, placedby: string, placedtime: string, etaexpiretime: string);
     static from_db(db_entry: any): Landmine;
 }
 declare class Loot extends Msg {
+    id: number;
     location: GeoLocation;
     rarity: string;
     expiretime: string;
-    constructor(location: GeoLocation, rarity: string, expiretime: string);
+    constructor(id: number, location: GeoLocation, rarity: string, expiretime: string);
     static from_db(db_entry: any): Loot;
 }
 /**
@@ -139,6 +148,6 @@ declare class FetchMissiles extends Msg {
 }
 declare function classify(item: any): Echo | GeoLocation | Player | LocationUpdate | Missile | Landmine | Loot | PlayerMissileHit | PlayerLandmineHit | PlayerLootHit | PlayerMissileMiss | PlayerLandmineMiss | MissileGroup | Missile1 | Missile2 | Missile3 | Landmine1 | Landmine2 | Landmine3 | FetchMissiles;
 declare function zip(wsm: WebSocketMessage): Buffer;
-declare function zip_single(msg: Msg): Buffer;
-declare function unzip(packed: Buffer): WebSocketMessage;
-export { Msg, WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, FetchMissiles, MissileGroup, MissileType, Missile1, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3, zip, zip_single, unzip, classify };
+declare function zip_single(msg: WSMsg): Buffer;
+declare function unzip(packed: Buffer | Uint8Array | number[]): WebSocketMessage;
+export { WSMsg, Msg, WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, FetchMissiles, MissileGroup, MissileType, Missile1, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3, zip, zip_single, unzip, classify };
