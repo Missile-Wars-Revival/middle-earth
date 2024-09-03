@@ -53,6 +53,7 @@ declare class Missile extends Msg {
 }
 declare class Landmine extends Msg {
     id: number;
+    id: number;
     type: string;
     damage: number;
     location: GeoLocation;
