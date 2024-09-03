@@ -83,7 +83,7 @@ class Missile extends Msg {
     status: string;
     destination: GeoLocation;
     currentLocation: GeoLocation;
-    missileId: Number; // Unique identifier for the missile. Only unique for each player. 
+    missileId: Number; 
     damage: number;
     radius: number;
     sentbyusername: string;
@@ -133,7 +133,6 @@ class Missile extends Msg {
 
 class Landmine extends Msg {
     id: number;
-    id: number;
     type: string;
     damage: number;
     location: GeoLocation;
@@ -157,10 +156,8 @@ class Landmine extends Msg {
     static from_db(db_entry: any) {
         let location = new GeoLocation(db_entry.locLat, db_entry.locLong);
         let placedby = db_entry.placedBy
-        let placedby = db_entry.placedBy
         let etaexpiretime = db_entry.Expires
         return new Landmine(
-            db_entry.id,
             db_entry.id,
             db_entry.type,
             db_entry.damage,
