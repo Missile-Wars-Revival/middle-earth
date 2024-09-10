@@ -72,11 +72,12 @@ declare class Loot extends Msg {
 }
 declare class Other extends Msg {
     id: number;
-    location: GeoLocation;
     type: string;
+    radius: number;
+    location: GeoLocation;
     expiretime: string;
-    constructor(id: number, location: GeoLocation, type: string, expiretime: string);
-    static from_db(db_entry: any): Loot;
+    constructor(id: number, type: string, radius: number, location: GeoLocation, expiretime: string);
+    static from_db(db_entry: any): Other;
 }
 /**
  * A hit confirmation message is sent to the player who fired the missile and the player who was hit.

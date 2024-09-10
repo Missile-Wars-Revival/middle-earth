@@ -121,17 +121,18 @@ class Loot extends Msg {
 }
 exports.Loot = Loot;
 class Other extends Msg {
-    constructor(id, location, type, expiretime) {
+    constructor(id, type, radius, location, expiretime) {
         super("Other");
         this.id = id;
-        this.location = location;
         this.type = type;
+        this.radius = radius;
+        this.location = location;
         this.expiretime = expiretime;
     }
     static from_db(db_entry) {
         let location = new GeoLocation(db_entry.locLat, db_entry.locLong);
         let expiretime = db_entry.Expires;
-        return new Loot(db_entry.id, location, db_entry.type, expiretime);
+        return new Other(db_entry.id, db_entry.type, db_entry.radius, location, expiretime);
     }
 }
 exports.Other = Other;
