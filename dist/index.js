@@ -5,7 +5,7 @@
  * The server can relay this datatypes not unlike a TURN server in P2P communication.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.MissileGroup = exports.FetchMissiles = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = exports.WSMsg = void 0;
+exports.classify = exports.unzip = exports.zip_single = exports.zip = exports.Landmine3 = exports.Landmine2 = exports.Landmine1 = exports.LandmineType = exports.Missile3 = exports.Missile2 = exports.Missile1 = exports.MissileType = exports.MissileGroup = exports.FetchMissiles = exports.PlayerLandmineMiss = exports.PlayerMissileMiss = exports.PlayerLootHit = exports.PlayerLandmineHit = exports.PlayerMissileHit = exports.Other = exports.Loot = exports.Landmine = exports.Missile = exports.LocationUpdate = exports.Player = exports.GeoLocation = exports.WebSocketMessage = exports.Msg = exports.WSMsg = void 0;
 const msgpack_lite_1 = require("msgpack-lite");
 // Base Types. You likely won't directly use these types.
 class WebSocketMessage {
@@ -120,6 +120,21 @@ class Loot extends Msg {
     }
 }
 exports.Loot = Loot;
+class Other extends Msg {
+    constructor(id, location, type, expiretime) {
+        super("Other");
+        this.id = id;
+        this.location = location;
+        this.type = type;
+        this.expiretime = expiretime;
+    }
+    static from_db(db_entry) {
+        let location = new GeoLocation(db_entry.locLat, db_entry.locLong);
+        let expiretime = db_entry.Expires;
+        return new Loot(db_entry.id, location, db_entry.type, expiretime);
+    }
+}
+exports.Other = Other;
 // Server -> Client
 /**
  * A hit confirmation message is sent to the player who fired the missile and the player who was hit.
@@ -274,6 +289,10 @@ function classify(item) {
         case "Loot":
             let loot = item;
             return loot;
+            break;
+        case "Other":
+            let other = item;
+            return other;
             break;
         case "PlayerMissileHit":
             let pmh = item;

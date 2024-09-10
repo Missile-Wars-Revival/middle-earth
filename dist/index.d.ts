@@ -70,6 +70,14 @@ declare class Loot extends Msg {
     constructor(id: number, location: GeoLocation, rarity: string, expiretime: string);
     static from_db(db_entry: any): Loot;
 }
+declare class Other extends Msg {
+    id: number;
+    location: GeoLocation;
+    type: string;
+    expiretime: string;
+    constructor(id: number, location: GeoLocation, type: string, expiretime: string);
+    static from_db(db_entry: any): Loot;
+}
 /**
  * A hit confirmation message is sent to the player who fired the missile and the player who was hit.
  * This ensures the client's view of the game is consistent with the server's view.
@@ -145,8 +153,8 @@ declare class FetchMissiles extends Msg {
     private brand;
     constructor();
 }
-declare function classify(item: any): Echo | GeoLocation | Player | LocationUpdate | Missile | Landmine | Loot | PlayerMissileHit | PlayerLandmineHit | PlayerLootHit | PlayerMissileMiss | PlayerLandmineMiss | MissileGroup | Missile1 | Missile2 | Missile3 | Landmine1 | Landmine2 | Landmine3 | FetchMissiles;
+declare function classify(item: any): Echo | GeoLocation | Player | LocationUpdate | Missile | Landmine | Loot | Other | PlayerMissileHit | PlayerLandmineHit | PlayerLootHit | PlayerMissileMiss | PlayerLandmineMiss | MissileGroup | Missile1 | Missile2 | Missile3 | Landmine1 | Landmine2 | Landmine3 | FetchMissiles;
 declare function zip(wsm: WebSocketMessage): Buffer;
 declare function zip_single(msg: WSMsg): Buffer;
 declare function unzip(packed: Buffer | Uint8Array | number[]): WebSocketMessage;
-export { WSMsg, Msg, WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, FetchMissiles, MissileGroup, MissileType, Missile1, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3, zip, zip_single, unzip, classify };
+export { WSMsg, Msg, WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, Other, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, FetchMissiles, MissileGroup, MissileType, Missile1, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3, zip, zip_single, unzip, classify };
