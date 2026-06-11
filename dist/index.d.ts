@@ -70,6 +70,29 @@ declare class Loot extends Msg {
     constructor(id: number, location: GeoLocation, rarity: string, expiretime: string);
     static from_db(db_entry: any): Loot;
 }
+/**
+ * A friend entry as sent in the 'friends' websocket message.
+ * profileImageUrl is resolved server-side (Firebase download URL) and is null when
+ * the user has no uploaded profile image; the client maps null to a default avatar.
+ */
+interface Friend {
+    username: string;
+    profileImageUrl: string | null;
+}
+/**
+ * A player location entry as sent in the 'playerlocations' websocket message.
+ * profileImageUrl follows the same server-resolved contract as Friend.
+ */
+interface PlayerLocation {
+    username: string;
+    latitude: string;
+    longitude: string;
+    updatedAt: string;
+    health: number;
+    randomlocation: boolean;
+    transportStatus: string;
+    profileImageUrl: string | null;
+}
 declare class Other extends Msg {
     id: number;
     type: string;
@@ -158,4 +181,5 @@ declare function classify(item: any): Echo | GeoLocation | Player | LocationUpda
 declare function zip(wsm: WebSocketMessage): Buffer;
 declare function zip_single(msg: WSMsg): Buffer;
 declare function unzip(packed: Buffer | Uint8Array | number[]): WebSocketMessage;
+export type { Friend, PlayerLocation };
 export { WSMsg, Msg, WebSocketMessage, GeoLocation, Player, LocationUpdate, Missile, Landmine, Loot, Other, PlayerMissileHit, PlayerLandmineHit, PlayerLootHit, PlayerMissileMiss, PlayerLandmineMiss, FetchMissiles, MissileGroup, MissileType, Missile1, Missile2, Missile3, LandmineType, Landmine1, Landmine2, Landmine3, zip, zip_single, unzip, classify };

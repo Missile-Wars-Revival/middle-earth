@@ -191,6 +191,31 @@ class Loot extends Msg {
     }
 }
 
+/**
+ * A friend entry as sent in the 'friends' websocket message.
+ * profileImageUrl is resolved server-side (Firebase download URL) and is null when
+ * the user has no uploaded profile image; the client maps null to a default avatar.
+ */
+interface Friend {
+    username: string;
+    profileImageUrl: string | null;
+}
+
+/**
+ * A player location entry as sent in the 'playerlocations' websocket message.
+ * profileImageUrl follows the same server-resolved contract as Friend.
+ */
+interface PlayerLocation {
+    username: string;
+    latitude: string;
+    longitude: string;
+    updatedAt: string;
+    health: number;
+    randomlocation: boolean;
+    transportStatus: string;
+    profileImageUrl: string | null;
+}
+
 class Other extends Msg {
     id: number
     type: string;
@@ -471,6 +496,11 @@ function unzip(packed: Buffer | Uint8Array | number[]) {
     return new WebSocketMessage(instantiated);
 }
 
+
+export type {
+    Friend,
+    PlayerLocation
+};
 
 export {
     WSMsg,
