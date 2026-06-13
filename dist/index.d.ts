@@ -90,6 +90,7 @@ interface PlayerLocation {
     updatedAt: string;
     health: number;
     randomlocation: boolean;
+    locationPrecision?: "precise" | "diffused";
     transportStatus: string;
     profileImageUrl: string | null;
 }

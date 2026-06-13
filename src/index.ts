@@ -207,11 +207,18 @@ interface Friend {
  */
 interface PlayerLocation {
     username: string;
+    // Phase 11A: for a player who has location diffusion on and is not the
+    // viewer's friend, these are SERVER-DIFFUSED coordinates — the precise
+    // location never leaves the server. `locationPrecision` says which it is so
+    // the client renders the point as-is (stable, easy to tap) instead of
+    // re-randomising it. Absent on pre-Phase-11 servers (treat as "precise"
+    // and fall back to the legacy client-side diffusion of `randomlocation`).
     latitude: string;
     longitude: string;
     updatedAt: string;
     health: number;
     randomlocation: boolean;
+    locationPrecision?: "precise" | "diffused";
     transportStatus: string;
     profileImageUrl: string | null;
 }
@@ -315,7 +322,7 @@ class MissileGroup extends Msg {
 // Missile Types
 class MissileType { // Abstract type. Don't use.
     itemType: string;
-    missileBrand: "MISSILE" // Used to prevent TS from conflating MissileType and LandmineType
+    missileBrand!: "MISSILE" // Used to prevent TS from conflating MissileType and LandmineType
     constructor() {
         this.itemType = "MissileType";
     }
@@ -348,7 +355,7 @@ class Missile3 extends MissileType {
 // Landmine Types
 class LandmineType {
     itemType: string
-    landmineBrand: "LANDMINE" // Used to prevent TS from conflating this type with MissileType
+    landmineBrand!: "LANDMINE" // Used to prevent TS from conflating this type with MissileType
     constructor() {
         this.itemType = "LandmineType";
     }
