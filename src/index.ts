@@ -219,6 +219,9 @@ interface PlayerLocation {
     health: number;
     randomlocation: boolean;
     locationPrecision?: "precise" | "diffused";
+    // The diffused player's league airspace radius (metres). Sizes the client's
+    // diffusion circle and the marker's randomised offset inside it.
+    airspaceRadius?: number;
     transportStatus: string;
     profileImageUrl: string | null;
 }

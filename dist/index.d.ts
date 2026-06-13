@@ -91,6 +91,7 @@ interface PlayerLocation {
     health: number;
     randomlocation: boolean;
     locationPrecision?: "precise" | "diffused";
+    airspaceRadius?: number;
     transportStatus: string;
     profileImageUrl: string | null;
 }
